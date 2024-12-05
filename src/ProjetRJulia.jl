@@ -1,5 +1,8 @@
 module ProjetRJulia
 
-# Write your package code here.
+export train_model, evaluate_model
+
+include("breastcancer.jl")
+
 
 end
