@@ -1,6 +1,9 @@
-using ProjetRjulia
+using ProjetRJulia
 
 ########################### Breast Cancer #############################
+
+#Charger le dataset
+data = ProjetRJulia.load_data()
 
 #Entrainement et predicton du modèle pour le cancer du sein
 model, y_test, y_pred=train_model(data)

@@ -8,11 +8,19 @@ using MLJ
 using DecisionTree
 using ScikitLearn: fit!, predict
 
-#Clean dataset
-data = CSV.read("C:/Users/emmar/Github/ProjetRJulia.jl/data.csv", DataFrame)
-select!(data, Not([:id,:Column33]))
+#Fonction pour load le dataset quelque soit la ou il est
+function load_data()
+    # Trouve le chemin du dataset dans le package
+    data_path = joinpath(@__DIR__, "../data/data.csv")
 
-data.diagnosis = parse.(Int, replace.(data.diagnosis, "M" => "1", "B" => "0"))
+    data=CSV.read(data_path, DataFrame)
+
+    select!(data, Not([:id,:Column33]))
+
+    data.diagnosis = parse.(Int, replace.(data.diagnosis, "M" => "1", "B" => "0"))
+
+    return data
+end
 
 #visualisation
 counts=countmap(data.diagnosis)
