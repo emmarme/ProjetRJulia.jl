@@ -13,7 +13,7 @@ function load_data()
     # Trouve le chemin du dataset dans le package
     data_path = joinpath(@__DIR__, "../data/data.csv")
 
-    data=CSV.read(data_path, DataFrame)
+    data = CSV.read(data_path, DataFrame)
 
     select!(data, Not([:id,:Column33]))
 
@@ -22,10 +22,6 @@ function load_data()
     return data
 end
 
-#visualisation
-counts=countmap(data.diagnosis)
-histogram(data.radius_mean)
-pie(counts)
 
 function train_model(data)
     #on selectionne notre X et y
