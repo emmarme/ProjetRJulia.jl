@@ -6,5 +6,6 @@ include("breastcancer.jl")
 
 include("medalsprediction.jl")
 
+include("snakegame.jl")
 
 end
