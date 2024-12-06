@@ -1,4 +1,3 @@
-using Pkg
 using CSV
 using DataFrames
 using Plots
@@ -8,7 +7,9 @@ using MLJ
 using DecisionTree
 using ScikitLearn: fit!, predict
 
-#Fonction pour load le dataset quelque soit la ou il est
+gr()
+
+#Fonction pour load le dataset quelque soit la ou il est et pour le clean
 function load_data()
     # Trouve le chemin du dataset dans le package
     data_path = joinpath(@__DIR__, "../data/data.csv")
@@ -54,6 +55,13 @@ function evaluate_model(y_test,y_pred)
     #Calcul et affichage de la matrice de confusion
     cm =confusion_matrix(y_test,y_pred)
     println("Confusion Matrice : ", cm)
+
+    # Extraire la matrice de confusion sous forme de tableau
+    cm_array = cm.mat
+
+    # Affichage de la matrice de confusion sous forme de graphique
+    display(heatmap(cm_array, xlabel="Predictions", ylabel="Vérités Réelles", title="Confusion Matrix", color=:blues,annot=true))
+
 
     #Calcul de la précision, f1 score et recall
     recall_score=recall(y_pred,y_test)

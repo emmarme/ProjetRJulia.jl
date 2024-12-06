@@ -1,0 +1,23 @@
+---
+title: "Rapport de Projet R et Julia"
+author: "Emma Roume et Jade Bordet"
+date: "`r Sys.Date()`"
+output:
+  html:
+    toc: true
+    theme: cosmo
+pdf: default
+word: default
+---
+
+## Introduction 
+
+Dans le cadre de notre Master 1 en Statistique et Science des Données, nous avons réalisé un projet dans le cadre des UE Logiciels Spécialisés (parties sur R et Julia) et l'UE Outils de présentation et de recherche reproductible. Ce projet avait pour principal objectif de consolider et développer nos compétences en programmation avec R mais aussi de découvrir le logiciel Julia. Il fallait faire en deux modes, en mode utilisateur : Environnement de travail ; Notion de package (installation, utilisation); Introduction des natures et structures R de base; Extraction de données avec application sur données réelles. Mais aussi, en mode développeur : Programmation fonctionnelle ; Création de package; Programmation orientée objet (S3); Introduction au package RCpp pour booster les exécutions des codes R.
+
+Nous disposions d'une totale liberté dans le choix de sujet de notre projet, une approche qui visait à stimuler notre engagement et à encourager notre créativité (merci Remy).
+
+Ce rapport retrace notre parcours tout au long de ce projet, une aventure pleine de défi et ou on a failli s'arracher les cheveux à de multiple reprise. La mise en place a nécessité une bonne dose d'organisation et de persévérance.
+
+Ce document sert également de synthèse, il va nous permettre de revenir sur les difficultés, les points forts et faibles de notre projet mais aussi de présenter la stratégie mise en place.
+
+
