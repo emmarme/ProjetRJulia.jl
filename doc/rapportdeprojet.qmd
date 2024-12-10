@@ -21,8 +21,142 @@ Ce rapport retrace notre parcours tout au long de ce projet, une aventure pleine
 Ce document sert également de synthèse, il va nous permettre de revenir sur les difficultés, les points forts et faibles de notre projet mais aussi de présenter la stratégie mise en place.
 
 
+## Début de notre projet
+
+Nous avons d’abord cherché un sujet qui pouvait nous plaire à toutes les deux. Après réflexion on a décidé de partir sur le sport en général, Jade étant très sportive et moi qui adore regarder le sport à la télé ! La gymnastique étant un sport que nous apprécions toutes les deux nous sommes donc parties sur cela. En discutant d’avantage une idée nous est venue : est -il possible de prédire les prochaines médailles olympiques aux JO 2028 en gymnastique ? 
+
+Un mélange de ce que l’on aime toutes les deux et un défi sympa à réaliser (irréalisable finalement…)
+
+Qui dis prédiction dis Machine Learning notre projet serait donc de créer un algorithme de machine Learning dans le but de prédire les prochaines médailles au JO.
+
+Au début de notre projet on a vite réalisé qu’il était essentiel pour nous de trouver une base de données adaptée, contenant toutes les variables nécessaires pour réaliser notre projet et faire une classification. Notre première idée était de créer notre propre base de données. Ce qui aurait très intéressant pour avoir un contrôle sur les données dont on avait besoin, mais on s’est très vite rendu compte que cette tâche serait très compliquée. Créer une base de données avec toutes les variables dont nous avons besoin aurait été une perte de temps considérable. De plus ce travail n’est pas adapté au cours dans le quelle nous somme mais plus à un cours de base de données. Ce travail nous aurait pris plus de temps que de créer le code, donc on a abandonné l’idée.
+
+Pour gagner en efficacité sur ce projet, on a alors commencé nos recherches pour trouver une base de données déjà existante. Nous avons exploré plusieurs sites jusqu’à ce que nous tombions sur une base de données Kaggle qui répondait parfaitement à nos besoins. Ce jeu de données contenait toutes les variables nécessaires pour construire notre modèle de classification. Ce qui nous a permis de nous concentrer sur la modélisation, et l’implémentation d’algorithmes.
+
+Une fois la base de données choisie nous avons décidé d’utiliser Julia pour créer notre algorithme de machine Learning. Julia étant un langage que nous connaissions peu, mais il nous l’a été vendu comme super performant alors quoi de mieux que Julia pour implémenter cet algorithme ! Nous avons vu ce projet comme une opportunité de nous familiariser avec Julia en appliquant des concepts de machine Learning, ce qui nous a permis d’élargir nos compétences et de découvrir tous ses atouts.
+
+Pour le choix de l’algorithme, nous avons opté pour Random Forest. Cet algorithme est particulièrement réputé pour sa robustesse et ses performances dans les taches de classification. Il fonctionne en combinant les prédictions de plusieurs arbres indépendant chacun étant construit sur un sous-échantillon aléatoire des données. C’est cette robustesse qui a motivé notre choix.
+
+Pour débuter a coder, la première étape a été de nettoyer la base de données. Cela m’a pris pas mal de temps car j’ai voulu effectuer ce nettoyage à la fois sur R et sur Julia, afin de comparer et de m’exercer sur les deux langages. J’ai donc commencé par nettoyer une première base de données, mais j’ai ensuite découvert qu’elle ne contenait des résultats que jusqu’en 2016, ce qui ne correspondait pas du tout à ce que je voulais. 
+
+Le nettoyage de la base de données a impliqué plusieurs étapes importantes. La base de données d’origines était très large et contenait des données pour tous les sports des Jeux olympiques. J’ai donc commencé par filtrer les données pour ne conserver uniquement les lignes ou la gymnastique apparaissait comme discipline. Ensuite j’ai restreint la période d’analyse aux années 2008 et 2020 afin de pouvoir entrainer l’algorithme.
+
+Une autre étape assez importante a été le traitement de la variable médaille, comme cette variable contenait des valeurs manquantes, cela s’expliquait par le fait que la personne sur la ligne n’avait pas gagné de médaille, j’ai choisi de remplacer par une nouvelle catégorie intitulée « no medals » pour bien signifier que le participant n’avait rien remporté.
+
+Par la suite j’ai transformé les catégories textuelles gold, silver, bronze et no medals en valeur numérique (1, 2, 3 et 0 respectivement). Cette conversion est essentielle, car l’algorithme Random Forest, travaille avec des données numériques et non textuelles. En transformant les catégories en étiquettes numériques, j’ai rendu la variable exploitable pour l’entrainement de notre modèle. 
+
+Enfin, j’ai également modifié la variable event, qui contenait les noms des différents agrées de gymnastique. Ces noms étaient souvent trop longs et en anglais, ce qui n’était pas très pratique pour travailler et comprendre les données. J’ai donc traduit les noms des disciplines en français et je les ai remplacés par des termes correspondant aux agrées de gymnastique comme sol, poutre… Cette étape avait pour but de rendre les données plus compréhensible et accessible pour l’utilisation.
+
+Ce nettoyage a été donc une étape essentielle pour préparer les données avant d’appliquer l’algorithme de machine Learning. Il a permis de transformer une base de données pour la rendre prête à l’emploi.
+
+Pour chaque étape du projet, on a décidé de créer des fonctions spécifiques. D’abord j’ai écrit une fonction pour nettoyer la base de données, puis une autre pour entrainer le modèle avec l’algorithme Random Forest. C’est à ce moment la que je me suis retrouvé face à une erreur que j’ai mis énormément de temps à résoudre.
+
+Mon problème était que je n’arrivais pas à trouver une fonction qui me permettait de convertir toutes mes variables catégorielles textuelles en variables numériques, tout en évitant l’implication d’une relation d’ordre entre les catégories. Par exemple, l’algorithme pourrait interpréter que le fait de mettre femelle=1 et male =2, signifierait 1<2, mais ce n’est pas le cas.
+
+C’est la qu’intervient la fonction One-Hot-Encoding. Cette fonction permet de convertir des catégories textuelles en plusieurs colonnes binaires indépendantes. Par exemple pour la variable sex, elle va créer deux colonnes distinctes : sex_male, sex_female. Pour caque ligne de la base de données la colonne sex_male prendra 1 si la personne est un homme et 0 sinon et de même pour la colonne sex_female. Cette transformation supprime toute notion d’ordre implicite et est beaucoup mieux adapté pour l’algorithme Random Forest, qui fonctionne avec des valeurs numériques.
+
+Malheureusement pour moi la fonction de One-Hot-Encoding déjà implémentée sur Julia ne fonctionnait pas correctement dans mon code. J’ai donc décider de créer ma propre fonction en m’inspirant de fonction trouvée sur internet. Après quelques essais et ajustement, j’ai réussi a obtenir une fonction opérationnelle.
+
+La dernière fonction que j’ai créée permet d’évaluer le modèle après l’entrainement, en calculant plusieurs scores d’évaluation comme l’accuracy, la précision et la matrice de confusion. Cela m’a permis de mieux comprendre les performances du modèle, qui n’était pas très bonnes 😊 
+
+Enfin l’une des dernières étapes de mon code consistait à afficher les résultats sous la forme suivante : je voulais lister, pour chaque catégorie, le nom des athlètes ainsi que la médaille qu’ils avaient remportée.
+
+En ce qui concerne les résultats, la bonne nouvelle est que j’arrive effectivement à obtenir des prédictions et à faire tourner mon code, mais malheureusement, elles ne sont pas du tout satisfaisantes. Mon accuracy est très faible, ce qui signifie que le modèles ne parvient pas à faire de bonnes prédictions. Le principal problème est que je reçois des résultats dupliqués. Par exemple, pour la catégorie « barre asymétrique », le modèle prédit deux voir trois personnes remportant la médaille d’or, ce qui est évidemment impossible. Et parfois même elle ne trouvait personne remportant la médaille d’or, il y avait des trous.
+
+Je pense que l’algorithme a appris que plusieurs personnes peuvent avoir la même proba de gagner une médaille, sans comprendre qu’il ne peut y avoir qu’un seul gagnant par médaille dans chaque catégorie. Ce problème peut aussi venir du fait que ma base de donnes est relativement petite, après avoir élémine les lignes inutiles, je n’avais plus qu’une centaine de lignes, ce qui n’est pas du tout satisfaisant pour entrainer correctement un modèle de ce genre. Je pense que c’est ce qui a fait que parfois il ne me donnait personne pour la médaille d’or surement que les lignes avaient été supprimées.
+
+Voici ce que j'obtiens:
+
+```{julia}
+using ProjetRJulia
+using DataFrames
+using MLJ
+
+#On prépare la base de donnée et on charge
+filtered_data = ProjetRJulia.load_data2()
+
+#Je veux dans mon résultat, le nom, la médaille gagnée et dans quelle event 
+prediction = DataFrame(Name = filtered_data.Name[partition(eachindex(filtered_data.Medal), 0.7)[2]], pred_Medal = y_pred, Event = filtered_data.Event[partition(eachindex(filtered_data.Medal), 0.7)[2]])
+
+resultat_par_evnmt = groupby(prediction, :Event)
+
+```
+
+Au final, j’ai compris que ce projet dans cette forme la, n’était pas totalement réalisable, Le manque de données suffisantes et la difficulté à faire en sorte que l’algorithme apprenne correctement ont limité la performance du modèle. Ca nous a permis de prendre conscience de l’importance de la qualité et de la taille des données dans la création d’un algorithme de machine Learning.
+
+Histoire de quand même avancer dans notre apprentissage du machine learning, de comprendre son fonctionnement et rendre un code assez potable, nous avons réfléchie a une alternative. Nous nous sommes mis d’accord sur l’idée de réaliser deux algorithmes de Machine Learning : un pour la prédiction des médailles (mêmes si les résultats ne sont pas bons) et un autre basé sur une autre base de données plus grande et plus fiable.
+
+Nous avons donc décider de créer un autre algorithme sur une autre base de données, beaucoup plus grande cette fois. Pour ce deuxième algorithme, nous avons choisi de travailler avec une base de données sur le cancer du sein. Le but ici était d’obtenir de bons résultats en termes d’accuracy, de précision et d’autres métriques d’évaluations. J’ai donc nettoyé cette base de données, puis entrainé le modèle de Random Forest et évalué la performance du modèle, exactement de la même manière que pour la prédiction de médaille et toujours sur Julia.
+
+Après avoir obtenu les résultats, nous nous sommes dit « Pourquoi pas comparer les performances de R et Julia en machine learning ? ».  J’ai donc réécrit un algorithme similaire en R et en utilisant le package caret et l’algorithme Random Forest, pour comparer les résultats avec ceux générés par Julia. Comme on le pressentais, les résultats étaient meilleurs avec Julia. En effet, pour les mêmes hyperparamètres et les mêmes données d’entrée, les performances du modèle en Julia étaient meilleures en termes d’accuracy, de précision et des autres métriques d’évaluation.
+Voici les performances en Julia:
 
 ```{julia}
 using ProjetRJulia
 accuracy, cm, recall_score, f1_score = evaluate_model(y_test, y_pred)
 ```
+
+Et celle en R: 
+
+```{r}
+
+
+```
+
+Pour moi, la principale raison de cette différence réside dans la nature des langages. R est un langage interprété, ce qui signifie que chaque ligne de code est traduite et exécutée à la volée par l’interpréteur. Ça peut entrainer des ralentissements, surtout quand il s’agit de tache intensive comme la création des arbres de décision. Julia lui est un langage compilé à la volée, ce qui lui permet d’exécuter des codes plus rapidement et plus efficacement. Cette différence de fonctionnement a donc un impact direct sur les performances, particulièrement pour des algorithmes de machine Learning qui nécessitent des calculs répétitifs sur de grandes quantité de données
+Donc pour mon code, Julia a montré de meilleures performances en machine Learning.
+
+J’ai essayé de faire quelques visualisations sur R et Julia. L’idée était de faire de graphique comme des histogrammes et d’autres visualisation que nous allons insérer par la suite dans notre application shiny. 
+
+Voici quelques exemples de visualisations faites:
+
+```{julia}
+using ProjetRJulia
+using DataFrames
+using Plots
+using StatsPlots
+
+#Charger le dataset
+data = ProjetRJulia.load_data()
+
+histogram(data.radius_mean,title="Histogramme radius_mean", xlabel="radius_mean", ylabel="Fréquence", legend=false)
+
+histogram(data.area_mean,title="Histogramme area_mean", xlabel="area_mean", ylabel="Fréquence", legend=false)
+
+histogram(data.symmetry_mean,title="Histogramme symmetry_mean", xlabel="symmetry_mean", ylabel="Fréquence", legend=false)
+
+violin(data.texture_mean, title="Violinplot de texture_mean", ylabel="texture_mean", xlabel="Category", legend=false)
+
+boxplot(data.diagnosis, data.area_se, title="Boxplot of area_se by Diagnosis", xlabel=["Bénin","Malin"], ylabel="area_se")
+
+
+```
+
+J’ai aussi essayé de me servir de Rulia pour quand même essayer un petit peu mais j’ai beaucoup de mal à comprendre et avec tout les autres problèmes qui sont apparus je n’ai pas bien eu le temps de m’y intéresser plus.
+
+Un des dernières étapes de notre projet a été de créer les packages qui regroupe toutes nos fonctions créées pour les rendre facilement réutilisables. Nous avons créé un package R et un autre Julia. Ce qui a été très compliqué au début surtout pour le package Julia.
+
+Pour Julia j’ai commencé par suivre un tutoriel trouvé en ligne, qui expliquait comment créer un package manuellement. Ce tuto montrait comment structurer correctement le package en définissant un module portant le nom que l’on voulait pour le package. Il indiquait également la hiérarchie nécessaire avec des dossiers comme src/, les fichier Project.toml… J’ai donc compris la structure générale, mais la configuration était trop compliquée. Heureusement nous avons eu un magnifique tuto créer par Mr Remy qui nous a expliqué en détails comment créer un package Julia de manière standard, ce qui m’a permis de corriger ce que j’avais fats précédemment, maintenant on est des expertes dans la création de package.
+
+Un des problèmes que j’ai rencontré dans la création de mon package, concerné le dépôt sur GitHub. Lors de la création de mon repository, je cochais systématiquement la case « Add a README file » qui provoquait des conflits avec les fichiers que j’essayais de push. J’ai donc du recréer plusieurs fois un package avant de comprendre d’où venait l’erreur. Une autre erreur qui apparait, tous mes push depuis la création du package ont des erreurs mais toutes les mises a jour que je fais sont bien dans le GitHub alors je ne comprends pas. Finalement j’ai réussi à tout configurer correctement et j’ai nommé mon package ProjetRJulia.jl qui est désormais fonctionnel et accessible.
+
+Le plus grand défi que j’ai rencontré lors de la création de mon package a été la mise en place et le processus de push sur GitHub. A chaque tentative de push, sans exception (je ne mens pas) j’ai rencontré des échecs. Il y avait toujours un problème, ce qui m’a demandé énormément de temps pour tout résoudre.
+
+Au début le problème principal venait des packages utilisés dans mon code. Ils n’étaient pas correctement intégrés dans mon package ProjetRJulia.jl. Ce qui générait des erreurs lors de l’exécution. Pour résoudre ça, j’ai dû m’assurer que tous les packages nécessaires étaient bien chargés dans le fichier Project.toml avant de pouvoir pousser les premiers commits.
+
+Ensuite j’ai rencontré des problèmes de version. Mon package était défini avec la version 1.10 mais certains des autres packages, comme Pkg, étaient sur la version 1.11, qui correspond à la dernière version de Julia. Ce qui a causé des conflits de version lors du push. De même, les packages ScikitLearn cherchait à installer des versions de packages plus anciennes que celles déjà présentes sur mon système, ce qui a provoqué des erreurs, encore. Pour résoudre ce problème j’ai du supprimer tous les packages et réinstaller ScikitLearn en premier, puis ajouter les autres packages par la suite dans le bon ordre.
+
+Le dernier problème était lié à la gestion de la base de données. Sur GitHub, le chemin pour accéder a mon fichier de données n’était pas valide, car il faisait référence au chemin local de mon ordinateur. Pour contourner ce problème, j’ai créé une fonction permettant de charger dynamiquement le dataset, de manière que le package puisse être utilisé par n’importe qui, peu importe ou il est installé. Cette fonction ne dépend désormais que du répertoire spécifié dans le package, ce qui rend l’utilisation du package plus flexible et compatible sur différentes machines.
+
+En résume, la configuration correcte de l’environnement, la gestion des versions des packages et l’adaptation du code pour éviter les dépendances spécifiques à mon système local ont été des étapes clés pour résoudre ces problèmes et réussir à mettre en place et pousser sur GitHub.
+
+Pour le package R, nous avions développé plusieurs scripts R, notamment pour l’application Shiny et pour l’algorithme de machine Learning et il fallait les placer dans un package. J’ai suivi un autre tutoriel en ligne qui expliquait étape par étape comment créer un package R en utilisant les outils de base. Après avoir vérifié que tout fonctionnait correctement, j’ai également déposé ce package sur GitHub afin de le rendre accessible et réutilisable par d’autres.
+
+En conclusion cette étape de création de package a été une expérience enrichissante, même si ca a été compliqué. Elle nous a permis de mieux comprendre les bonnes pratiques de structuration de projet en Julia et en R et  l’utilités de l’intégration avec GitHub.
+ 
+
+
+
+
+
+

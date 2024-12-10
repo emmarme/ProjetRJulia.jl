@@ -1,0 +1,79 @@
+---
+title: "Présentation R et Julia"
+
+format:
+  revealjs:
+    theme: solarized
+    transition: concave
+    slide-number: true
+    self-contained: true
+
+---
+
+:::: {.columns}
+::: {.column width="50%"}   
+![](iab.png){width=2000px}
+
+
+
+:::
+
+::: {.column width="50%"}
+![](logo.png){width=280px}
+
+Group members :  
+Emma Roume
+Jade Bordet
+
+:::
+::::
+
+---
+
+# Plan 📋
+
+Voici le plan :  
+1. Context   
+2. Goals   
+3. Stakeholders   
+4. Accomplished tasks   
+5. Future actions   
+6. Challenges  
+7. Conclusion  
+
+---
+
+# Context 
+
+
+
+---
+
+# Goals 
+
+
+
+---
+
+# Stakeholders
+---
+
+# Accomplished tasks
+
+---
+
+# Future actions  
+
+---
+# Challenges
+---
+# Conclusion ✅
+
+Merci pour votre attention ! 😊  
+Des questions ?  
+Contactez-moi : 
+
+
+
+
+
