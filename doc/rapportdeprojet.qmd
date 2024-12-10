@@ -1,8 +1,8 @@
 ---
 title: "Rapport de Projet R et Julia"
 author: "Emma Roume et Jade Bordet"
-date: "`r Sys.Date()`"
-output: html_document
+date: "10/12/2024"
+format: html
 pdf: default
 word: default
 ---
@@ -29,6 +29,8 @@ Qui dis prédiction dis Machine Learning notre projet serait donc de créer un a
 Au début de notre projet on a vite réalisé qu’il était essentiel pour nous de trouver une base de données adaptée, contenant toutes les variables nécessaires pour réaliser notre projet et faire une classification. Notre première idée était de créer notre propre base de données. Ce qui aurait très intéressant pour avoir un contrôle sur les données dont on avait besoin, mais on s’est très vite rendu compte que cette tâche serait très compliquée. Créer une base de données avec toutes les variables dont nous avons besoin aurait été une perte de temps considérable. De plus ce travail n’est pas adapté au cours dans le quelle nous somme mais plus à un cours de base de données. Ce travail nous aurait pris plus de temps que de créer le code, donc on a abandonné l’idée.
 
 Pour gagner en efficacité sur ce projet, on a alors commencé nos recherches pour trouver une base de données déjà existante. Nous avons exploré plusieurs sites jusqu’à ce que nous tombions sur une base de données Kaggle qui répondait parfaitement à nos besoins. Ce jeu de données contenait toutes les variables nécessaires pour construire notre modèle de classification. Ce qui nous a permis de nous concentrer sur la modélisation, et l’implémentation d’algorithmes.
+
+## MedalsPrediction
 
 Une fois la base de données choisie nous avons décidé d’utiliser Julia pour créer notre algorithme de machine Learning. Julia étant un langage que nous connaissions peu, mais il nous l’a été vendu comme super performant alors quoi de mieux que Julia pour implémenter cet algorithme ! Nous avons vu ce projet comme une opportunité de nous familiariser avec Julia en appliquant des concepts de machine Learning, ce qui nous a permis d’élargir nos compétences et de découvrir tous ses atouts.
 
@@ -72,6 +74,9 @@ using MLJ
 #On prépare la base de donnée et on charge
 filtered_data = ProjetRJulia.load_data2()
 
+#Entrainement et predicton du modèle
+model, y_test, y_pred=train_model2(filtered_data)
+
 #Je veux dans mon résultat, le nom, la médaille gagnée et dans quelle event 
 prediction = DataFrame(Name = filtered_data.Name[partition(eachindex(filtered_data.Medal), 0.7)[2]], pred_Medal = y_pred, Event = filtered_data.Event[partition(eachindex(filtered_data.Medal), 0.7)[2]])
 
@@ -81,6 +86,8 @@ resultat_par_evnmt = groupby(prediction, :Event)
 
 Au final, j’ai compris que ce projet dans cette forme la, n’était pas totalement réalisable, Le manque de données suffisantes et la difficulté à faire en sorte que l’algorithme apprenne correctement ont limité la performance du modèle. Ca nous a permis de prendre conscience de l’importance de la qualité et de la taille des données dans la création d’un algorithme de machine Learning.
 
+## BreastCancer
+
 Histoire de quand même avancer dans notre apprentissage du machine learning, de comprendre son fonctionnement et rendre un code assez potable, nous avons réfléchie a une alternative. Nous nous sommes mis d’accord sur l’idée de réaliser deux algorithmes de Machine Learning : un pour la prédiction des médailles (mêmes si les résultats ne sont pas bons) et un autre basé sur une autre base de données plus grande et plus fiable.
 
 Nous avons donc décider de créer un autre algorithme sur une autre base de données, beaucoup plus grande cette fois. Pour ce deuxième algorithme, nous avons choisi de travailler avec une base de données sur le cancer du sein. Le but ici était d’obtenir de bons résultats en termes d’accuracy, de précision et d’autres métriques d’évaluations. J’ai donc nettoyé cette base de données, puis entrainé le modèle de Random Forest et évalué la performance du modèle, exactement de la même manière que pour la prédiction de médaille et toujours sur Julia.
@@ -88,19 +95,29 @@ Nous avons donc décider de créer un autre algorithme sur une autre base de don
 Après avoir obtenu les résultats, nous nous sommes dit « Pourquoi pas comparer les performances de R et Julia en machine learning ? ».  J’ai donc réécrit un algorithme similaire en R et en utilisant le package caret et l’algorithme Random Forest, pour comparer les résultats avec ceux générés par Julia. Comme on le pressentais, les résultats étaient meilleurs avec Julia. En effet, pour les mêmes hyperparamètres et les mêmes données d’entrée, les performances du modèle en Julia étaient meilleures en termes d’accuracy, de précision et des autres métriques d’évaluation.
 Voici les performances en Julia:
 
-```{julia}
+```{julia, echo=false}
+
 using ProjetRJulia
+
+#Charger le dataset
+data = ProjetRJulia.load_data()
+
+#Entrainement et predicton du modèle pour le cancer du sein
+model, y_test, y_pred=train_model(data)
+
 accuracy, cm, recall_score, f1_score = evaluate_model(y_test, y_pred)
 ```
 
 Pour moi, la principale raison de cette différence réside dans la nature des langages. R est un langage interprété, ce qui signifie que chaque ligne de code est traduite et exécutée à la volée par l’interpréteur. Ça peut entrainer des ralentissements, surtout quand il s’agit de tache intensive comme la création des arbres de décision. Julia lui est un langage compilé à la volée, ce qui lui permet d’exécuter des codes plus rapidement et plus efficacement. Cette différence de fonctionnement a donc un impact direct sur les performances, particulièrement pour des algorithmes de machine Learning qui nécessitent des calculs répétitifs sur de grandes quantité de données
 Donc pour mon code, Julia a montré de meilleures performances en machine Learning.
 
+## Visualisations
+
 J’ai essayé de faire quelques visualisations sur R et Julia. L’idée était de faire de graphique comme des histogrammes et d’autres visualisation que nous allons insérer par la suite dans notre application shiny. 
 
 Voici quelques exemples de visualisations faites:
 
-```{julia, echo=False}
+```{julia, echo=FALSE}
 using ProjetRJulia
 using DataFrames
 using Plots
@@ -111,20 +128,30 @@ gr()
 #Charger le dataset
 data = ProjetRJulia.load_data()
 
-histogram(data.radius_mean,title="Histogramme radius_mean", xlabel="radius_mean", ylabel="Fréquence", legend=false)
+p1=histogram(data.radius_mean,title="Histogramme radius_mean", xlabel="radius_mean", ylabel="Fréquence", legend=false)
 
-histogram(data.area_mean,title="Histogramme area_mean", xlabel="area_mean", ylabel="Fréquence", legend=false)
+p2=histogram(data.area_mean,title="Histogramme area_mean", xlabel="area_mean", ylabel="Fréquence", legend=false)
 
-histogram(data.symmetry_mean,title="Histogramme symmetry_mean", xlabel="symmetry_mean", ylabel="Fréquence", legend=false)
+p3=violin(data.symmetry_mean, title="Violinplot de symmetry_mean", xlabel="symmetry_mean", ylabel="Category", legend=false)
 
-violin(data.texture_mean, title="Violinplot de texture_mean", ylabel="texture_mean", xlabel="Category", legend=false)
+p4=violin(data.texture_mean, title="Violinplot de texture_mean", ylabel="texture_mean", xlabel="Category", legend=false)
 
-boxplot(data.diagnosis, data.area_se, title="Boxplot of area_se by Diagnosis", xlabel=["Bénin","Malin"], ylabel="area_se")
+color_map = Dict(0 => :red, 1 => :blue)
 
+p5=boxplot(data.diagnosis, data.area_se, title="Boxplot of area_se by Diagnosis", xlabel=["Bénin","Malin"], ylabel="area_se", legend=false)
+
+p6=boxplot(data.diagnosis, data.concavity_worst, title="Boxplot of concavity_worst by Diagnosis", xlabel=["Bénin","Malin"], ylabel="concavity_worst", legend=false)
+
+# Afficher les graphiques dans un layout
+plot(p1, p2, p3, p4, p5, p6, layout=(3, 2),size=(1000, 800))
 
 ```
 
+
+
 J’ai aussi essayé de me servir de Rulia pour quand même essayer un petit peu mais j’ai beaucoup de mal à comprendre et avec tout les autres problèmes qui sont apparus je n’ai pas bien eu le temps de m’y intéresser plus.
+
+## Création de Packages
 
 Un des dernières étapes de notre projet a été de créer les packages qui regroupe toutes nos fonctions créées pour les rendre facilement réutilisables. Nous avons créé un package R et un autre Julia. Ce qui a été très compliqué au début surtout pour le package Julia.
 
@@ -142,11 +169,10 @@ Le dernier problème était lié à la gestion de la base de données. Sur GitHu
 
 En résume, la configuration correcte de l’environnement, la gestion des versions des packages et l’adaptation du code pour éviter les dépendances spécifiques à mon système local ont été des étapes clés pour résoudre ces problèmes et réussir à mettre en place et pousser sur GitHub.
 
-
 Pour le package R, nous avions développé plusieurs scripts R, notamment pour l’application Shiny et pour l’algorithme de machine Learning et il fallait les placer dans un package. J’ai suivi un autre tutoriel en ligne qui expliquait étape par étape comment créer un package R en utilisant les outils de base. Après avoir vérifié que tout fonctionnait correctement, j’ai également déposé ce package sur GitHub afin de le rendre accessible et réutilisable par d’autres.
 
 En conclusion cette étape de création de package a été une expérience enrichissante, même si ca a été compliqué. Elle nous a permis de mieux comprendre les bonnes pratiques de structuration de projet en Julia et en R et  l’utilités de l’intégration avec GitHub.
- 
+
 
 
 

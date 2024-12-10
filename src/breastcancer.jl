@@ -16,7 +16,7 @@ function load_data()
 
     data = CSV.read(data_path, DataFrame)
 
-    select!(data, Not([:id,:Column33]))
+    select!(data, Not([:id]))
 
     data.diagnosis = parse.(Int, replace.(data.diagnosis, "M" => "1", "B" => "0"))
 
@@ -60,7 +60,7 @@ function evaluate_model(y_test,y_pred)
     cm_array = cm.mat
 
     # Affichage de la matrice de confusion sous forme de graphique
-    display(heatmap(cm_array, xlabel="Predictions", ylabel="Vérités Réelles", title="Confusion Matrix", color=:blues, annot=true))
+    display(heatmap(cm_array, xlabel="Predictions", ylabel="Actual", title="Confusion Matrix", color=:blues))
 
     #Calcul de la précision, f1 score et recall
     recall_score=recall(y_pred,y_test)
