@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Emma Roume et Jade Bordet">
+
+<title>Rapport de Projet R et Julia</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="rapportdeprojet_files/libs/clipboard/clipboard.min.js"></script>
+<script src="rapportdeprojet_files/libs/quarto-html/quarto.js"></script>
+<script src="rapportdeprojet_files/libs/quarto-html/popper.min.js"></script>
+<script src="rapportdeprojet_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="rapportdeprojet_files/libs/quarto-html/anchor.min.js"></script>
+<link href="rapportdeprojet_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="rapportdeprojet_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="rapportdeprojet_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="rapportdeprojet_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="rapportdeprojet_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Rapport de Projet R et Julia</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Emma Roume et Jade Bordet </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Invalid Date</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Dans le cadre de notre Master 1 en Statistique et Science des Données, nous avons réalisé un projet dans le cadre des UE Logiciels Spécialisés (parties sur R et Julia) et l’UE Outils de présentation et de recherche reproductible. Ce projet avait pour principal objectif de consolider et développer nos compétences en programmation avec R mais aussi de découvrir le logiciel Julia. Il fallait faire en deux modes, en mode utilisateur : Environnement de travail ; Notion de package (installation, utilisation); Introduction des natures et structures R de base; Extraction de données avec application sur données réelles. Mais aussi, en mode développeur : Programmation fonctionnelle ; Création de package; Programmation orientée objet (S3); Introduction au package RCpp pour booster les exécutions des codes R.</p>
+<p>Nous disposions d’une totale liberté dans le choix de sujet de notre projet, une approche qui visait à stimuler notre engagement et à encourager notre créativité (merci Remy).</p>
+<p>Ce rapport retrace notre parcours tout au long de ce projet, une aventure pleine de défi et ou on a failli s’arracher les cheveux à de multiple reprise. La mise en place a nécessité une bonne dose d’organisation et de persévérance.</p>
+<p>Ce document sert également de synthèse, il va nous permettre de revenir sur les difficultés, les points forts et faibles de notre projet mais aussi de présenter la stratégie mise en place.</p>
+</section>
+<section id="début-de-notre-projet" class="level2">
+<h2 class="anchored" data-anchor-id="début-de-notre-projet">Début de notre projet</h2>
+<p>Nous avons d’abord cherché un sujet qui pouvait nous plaire à toutes les deux. Après réflexion on a décidé de partir sur le sport en général, Jade étant très sportive et moi qui adore regarder le sport à la télé ! La gymnastique étant un sport que nous apprécions toutes les deux nous sommes donc parties sur cela. En discutant d’avantage une idée nous est venue : est -il possible de prédire les prochaines médailles olympiques aux JO 2028 en gymnastique ?</p>
+<p>Un mélange de ce que l’on aime toutes les deux et un défi sympa à réaliser (irréalisable finalement…)</p>
+<p>Qui dis prédiction dis Machine Learning notre projet serait donc de créer un algorithme de machine Learning dans le but de prédire les prochaines médailles au JO.</p>
+<p>Au début de notre projet on a vite réalisé qu’il était essentiel pour nous de trouver une base de données adaptée, contenant toutes les variables nécessaires pour réaliser notre projet et faire une classification. Notre première idée était de créer notre propre base de données. Ce qui aurait très intéressant pour avoir un contrôle sur les données dont on avait besoin, mais on s’est très vite rendu compte que cette tâche serait très compliquée. Créer une base de données avec toutes les variables dont nous avons besoin aurait été une perte de temps considérable. De plus ce travail n’est pas adapté au cours dans le quelle nous somme mais plus à un cours de base de données. Ce travail nous aurait pris plus de temps que de créer le code, donc on a abandonné l’idée.</p>
+<p>Pour gagner en efficacité sur ce projet, on a alors commencé nos recherches pour trouver une base de données déjà existante. Nous avons exploré plusieurs sites jusqu’à ce que nous tombions sur une base de données Kaggle qui répondait parfaitement à nos besoins. Ce jeu de données contenait toutes les variables nécessaires pour construire notre modèle de classification. Ce qui nous a permis de nous concentrer sur la modélisation, et l’implémentation d’algorithmes.</p>
+<p>Une fois la base de données choisie nous avons décidé d’utiliser Julia pour créer notre algorithme de machine Learning. Julia étant un langage que nous connaissions peu, mais il nous l’a été vendu comme super performant alors quoi de mieux que Julia pour implémenter cet algorithme ! Nous avons vu ce projet comme une opportunité de nous familiariser avec Julia en appliquant des concepts de machine Learning, ce qui nous a permis d’élargir nos compétences et de découvrir tous ses atouts.</p>
+<p>Pour le choix de l’algorithme, nous avons opté pour Random Forest. Cet algorithme est particulièrement réputé pour sa robustesse et ses performances dans les taches de classification. Il fonctionne en combinant les prédictions de plusieurs arbres indépendant chacun étant construit sur un sous-échantillon aléatoire des données. C’est cette robustesse qui a motivé notre choix.</p>
+<p>Pour débuter a coder, la première étape a été de nettoyer la base de données. Cela m’a pris pas mal de temps car j’ai voulu effectuer ce nettoyage à la fois sur R et sur Julia, afin de comparer et de m’exercer sur les deux langages. J’ai donc commencé par nettoyer une première base de données, mais j’ai ensuite découvert qu’elle ne contenait des résultats que jusqu’en 2016, ce qui ne correspondait pas du tout à ce que je voulais.</p>
+<p>Le nettoyage de la base de données a impliqué plusieurs étapes importantes. La base de données d’origines était très large et contenait des données pour tous les sports des Jeux olympiques. J’ai donc commencé par filtrer les données pour ne conserver uniquement les lignes ou la gymnastique apparaissait comme discipline. Ensuite j’ai restreint la période d’analyse aux années 2008 et 2020 afin de pouvoir entrainer l’algorithme.</p>
+<p>Une autre étape assez importante a été le traitement de la variable médaille, comme cette variable contenait des valeurs manquantes, cela s’expliquait par le fait que la personne sur la ligne n’avait pas gagné de médaille, j’ai choisi de remplacer par une nouvelle catégorie intitulée « no medals » pour bien signifier que le participant n’avait rien remporté.</p>
+<p>Par la suite j’ai transformé les catégories textuelles gold, silver, bronze et no medals en valeur numérique (1, 2, 3 et 0 respectivement). Cette conversion est essentielle, car l’algorithme Random Forest, travaille avec des données numériques et non textuelles. En transformant les catégories en étiquettes numériques, j’ai rendu la variable exploitable pour l’entrainement de notre modèle.</p>
+<p>Enfin, j’ai également modifié la variable event, qui contenait les noms des différents agrées de gymnastique. Ces noms étaient souvent trop longs et en anglais, ce qui n’était pas très pratique pour travailler et comprendre les données. J’ai donc traduit les noms des disciplines en français et je les ai remplacés par des termes correspondant aux agrées de gymnastique comme sol, poutre… Cette étape avait pour but de rendre les données plus compréhensible et accessible pour l’utilisation.</p>
+<p>Ce nettoyage a été donc une étape essentielle pour préparer les données avant d’appliquer l’algorithme de machine Learning. Il a permis de transformer une base de données pour la rendre prête à l’emploi.</p>
+<p>Pour chaque étape du projet, on a décidé de créer des fonctions spécifiques. D’abord j’ai écrit une fonction pour nettoyer la base de données, puis une autre pour entrainer le modèle avec l’algorithme Random Forest. C’est à ce moment la que je me suis retrouvé face à une erreur que j’ai mis énormément de temps à résoudre.</p>
+<p>Mon problème était que je n’arrivais pas à trouver une fonction qui me permettait de convertir toutes mes variables catégorielles textuelles en variables numériques, tout en évitant l’implication d’une relation d’ordre entre les catégories. Par exemple, l’algorithme pourrait interpréter que le fait de mettre femelle=1 et male =2, signifierait 1&lt;2, mais ce n’est pas le cas.</p>
+<p>C’est la qu’intervient la fonction One-Hot-Encoding. Cette fonction permet de convertir des catégories textuelles en plusieurs colonnes binaires indépendantes. Par exemple pour la variable sex, elle va créer deux colonnes distinctes : sex_male, sex_female. Pour caque ligne de la base de données la colonne sex_male prendra 1 si la personne est un homme et 0 sinon et de même pour la colonne sex_female. Cette transformation supprime toute notion d’ordre implicite et est beaucoup mieux adapté pour l’algorithme Random Forest, qui fonctionne avec des valeurs numériques.</p>
+<p>Malheureusement pour moi la fonction de One-Hot-Encoding déjà implémentée sur Julia ne fonctionnait pas correctement dans mon code. J’ai donc décider de créer ma propre fonction en m’inspirant de fonction trouvée sur internet. Après quelques essais et ajustement, j’ai réussi a obtenir une fonction opérationnelle.</p>
+<p>La dernière fonction que j’ai créée permet d’évaluer le modèle après l’entrainement, en calculant plusieurs scores d’évaluation comme l’accuracy, la précision et la matrice de confusion. Cela m’a permis de mieux comprendre les performances du modèle, qui n’était pas très bonnes 😊</p>
+<p>Enfin l’une des dernières étapes de mon code consistait à afficher les résultats sous la forme suivante : je voulais lister, pour chaque catégorie, le nom des athlètes ainsi que la médaille qu’ils avaient remportée.</p>
+<p>En ce qui concerne les résultats, la bonne nouvelle est que j’arrive effectivement à obtenir des prédictions et à faire tourner mon code, mais malheureusement, elles ne sont pas du tout satisfaisantes. Mon accuracy est très faible, ce qui signifie que le modèles ne parvient pas à faire de bonnes prédictions. Le principal problème est que je reçois des résultats dupliqués. Par exemple, pour la catégorie « barre asymétrique », le modèle prédit deux voir trois personnes remportant la médaille d’or, ce qui est évidemment impossible. Et parfois même elle ne trouvait personne remportant la médaille d’or, il y avait des trous.</p>
+<p>Je pense que l’algorithme a appris que plusieurs personnes peuvent avoir la même proba de gagner une médaille, sans comprendre qu’il ne peut y avoir qu’un seul gagnant par médaille dans chaque catégorie. Ce problème peut aussi venir du fait que ma base de donnes est relativement petite, après avoir élémine les lignes inutiles, je n’avais plus qu’une centaine de lignes, ce qui n’est pas du tout satisfaisant pour entrainer correctement un modèle de ce genre. Je pense que c’est ce qui a fait que parfois il ne me donnait personne pour la médaille d’or surement que les lignes avaient été supprimées.</p>
+<p>Voici ce que j’obtiens:</p>
+<pre class="{julia}"><code>using ProjetRJulia
+using DataFrames
+using MLJ
+
+#On prépare la base de donnée et on charge
+filtered_data = ProjetRJulia.load_data2()
+
+#Je veux dans mon résultat, le nom, la médaille gagnée et dans quelle event 
+prediction = DataFrame(Name = filtered_data.Name[partition(eachindex(filtered_data.Medal), 0.7)[2]], pred_Medal = y_pred, Event = filtered_data.Event[partition(eachindex(filtered_data.Medal), 0.7)[2]])
+
+resultat_par_evnmt = groupby(prediction, :Event)
+</code></pre>
+<p>Au final, j’ai compris que ce projet dans cette forme la, n’était pas totalement réalisable, Le manque de données suffisantes et la difficulté à faire en sorte que l’algorithme apprenne correctement ont limité la performance du modèle. Ca nous a permis de prendre conscience de l’importance de la qualité et de la taille des données dans la création d’un algorithme de machine Learning.</p>
+<p>Histoire de quand même avancer dans notre apprentissage du machine learning, de comprendre son fonctionnement et rendre un code assez potable, nous avons réfléchie a une alternative. Nous nous sommes mis d’accord sur l’idée de réaliser deux algorithmes de Machine Learning : un pour la prédiction des médailles (mêmes si les résultats ne sont pas bons) et un autre basé sur une autre base de données plus grande et plus fiable.</p>
+<p>Nous avons donc décider de créer un autre algorithme sur une autre base de données, beaucoup plus grande cette fois. Pour ce deuxième algorithme, nous avons choisi de travailler avec une base de données sur le cancer du sein. Le but ici était d’obtenir de bons résultats en termes d’accuracy, de précision et d’autres métriques d’évaluations. J’ai donc nettoyé cette base de données, puis entrainé le modèle de Random Forest et évalué la performance du modèle, exactement de la même manière que pour la prédiction de médaille et toujours sur Julia.</p>
+<p>Après avoir obtenu les résultats, nous nous sommes dit « Pourquoi pas comparer les performances de R et Julia en machine learning ? ». J’ai donc réécrit un algorithme similaire en R et en utilisant le package caret et l’algorithme Random Forest, pour comparer les résultats avec ceux générés par Julia. Comme on le pressentais, les résultats étaient meilleurs avec Julia. En effet, pour les mêmes hyperparamètres et les mêmes données d’entrée, les performances du modèle en Julia étaient meilleures en termes d’accuracy, de précision et des autres métriques d’évaluation. Voici les performances en Julia:</p>
+<pre class="{julia}"><code>using ProjetRJulia
+accuracy, cm, recall_score, f1_score = evaluate_model(y_test, y_pred)</code></pre>
+<p>Pour moi, la principale raison de cette différence réside dans la nature des langages. R est un langage interprété, ce qui signifie que chaque ligne de code est traduite et exécutée à la volée par l’interpréteur. Ça peut entrainer des ralentissements, surtout quand il s’agit de tache intensive comme la création des arbres de décision. Julia lui est un langage compilé à la volée, ce qui lui permet d’exécuter des codes plus rapidement et plus efficacement. Cette différence de fonctionnement a donc un impact direct sur les performances, particulièrement pour des algorithmes de machine Learning qui nécessitent des calculs répétitifs sur de grandes quantité de données Donc pour mon code, Julia a montré de meilleures performances en machine Learning.</p>
+<p>J’ai essayé de faire quelques visualisations sur R et Julia. L’idée était de faire de graphique comme des histogrammes et d’autres visualisation que nous allons insérer par la suite dans notre application shiny.</p>
+<p>Voici quelques exemples de visualisations faites:</p>
+<p>```{julia, echo=False} using ProjetRJulia using DataFrames using Plots using StatsPlots</p>
+<p>gr()</p>
+<p>#Charger le dataset data = ProjetRJulia.load_data()</p>
+<p>histogram(data.radius_mean,title=“Histogramme radius_mean”, xlabel=“radius_mean”, ylabel=“Fréquence”, legend=false)</p>
+<p>histogram(data.area_mean,title=“Histogramme area_mean”, xlabel=“area_mean”, ylabel=“Fréquence”, legend=false)</p>
+<p>histogram(data.symmetry_mean,title=“Histogramme symmetry_mean”, xlabel=“symmetry_mean”, ylabel=“Fréquence”, legend=false)</p>
+<p>violin(data.texture_mean, title=“Violinplot de texture_mean”, ylabel=“texture_mean”, xlabel=“Category”, legend=false)</p>
+<p>boxplot(data.diagnosis, data.area_se, title=“Boxplot of area_se by Diagnosis”, xlabel=[“Bénin”,“Malin”], ylabel=“area_se”)</p>
+<p>```</p>
+<p>J’ai aussi essayé de me servir de Rulia pour quand même essayer un petit peu mais j’ai beaucoup de mal à comprendre et avec tout les autres problèmes qui sont apparus je n’ai pas bien eu le temps de m’y intéresser plus.</p>
+<p>Un des dernières étapes de notre projet a été de créer les packages qui regroupe toutes nos fonctions créées pour les rendre facilement réutilisables. Nous avons créé un package R et un autre Julia. Ce qui a été très compliqué au début surtout pour le package Julia.</p>
+<p>Pour Julia j’ai commencé par suivre un tutoriel trouvé en ligne, qui expliquait comment créer un package manuellement. Ce tuto montrait comment structurer correctement le package en définissant un module portant le nom que l’on voulait pour le package. Il indiquait également la hiérarchie nécessaire avec des dossiers comme src/, les fichier Project.toml… J’ai donc compris la structure générale, mais la configuration était trop compliquée. Heureusement nous avons eu un magnifique tuto créer par Mr Remy qui nous a expliqué en détails comment créer un package Julia de manière standard, ce qui m’a permis de corriger ce que j’avais fats précédemment, maintenant on est des expertes dans la création de package.</p>
+<p>Un des problèmes que j’ai rencontré dans la création de mon package, concerné le dépôt sur GitHub. Lors de la création de mon repository, je cochais systématiquement la case « Add a README file » qui provoquait des conflits avec les fichiers que j’essayais de push. J’ai donc du recréer plusieurs fois un package avant de comprendre d’où venait l’erreur. Une autre erreur qui apparait, tous mes push depuis la création du package ont des erreurs mais toutes les mises a jour que je fais sont bien dans le GitHub alors je ne comprends pas. Finalement j’ai réussi à tout configurer correctement et j’ai nommé mon package ProjetRJulia.jl qui est désormais fonctionnel et accessible.</p>
+<p>Le plus grand défi que j’ai rencontré lors de la création de mon package a été la mise en place et le processus de push sur GitHub. A chaque tentative de push, sans exception (je ne mens pas) j’ai rencontré des échecs. Il y avait toujours un problème, ce qui m’a demandé énormément de temps pour tout résoudre.</p>
+<p>Au début le problème principal venait des packages utilisés dans mon code. Ils n’étaient pas correctement intégrés dans mon package ProjetRJulia.jl. Ce qui générait des erreurs lors de l’exécution. Pour résoudre ça, j’ai dû m’assurer que tous les packages nécessaires étaient bien chargés dans le fichier Project.toml avant de pouvoir pousser les premiers commits.</p>
+<p>Ensuite j’ai rencontré des problèmes de version. Mon package était défini avec la version 1.10 mais certains des autres packages, comme Pkg, étaient sur la version 1.11, qui correspond à la dernière version de Julia. Ce qui a causé des conflits de version lors du push. De même, les packages ScikitLearn cherchait à installer des versions de packages plus anciennes que celles déjà présentes sur mon système, ce qui a provoqué des erreurs, encore. Pour résoudre ce problème j’ai du supprimer tous les packages et réinstaller ScikitLearn en premier, puis ajouter les autres packages par la suite dans le bon ordre.</p>
+<p>Le dernier problème était lié à la gestion de la base de données. Sur GitHub, le chemin pour accéder a mon fichier de données n’était pas valide, car il faisait référence au chemin local de mon ordinateur. Pour contourner ce problème, j’ai créé une fonction permettant de charger dynamiquement le dataset, de manière que le package puisse être utilisé par n’importe qui, peu importe ou il est installé. Cette fonction ne dépend désormais que du répertoire spécifié dans le package, ce qui rend l’utilisation du package plus flexible et compatible sur différentes machines.</p>
+<p>En résume, la configuration correcte de l’environnement, la gestion des versions des packages et l’adaptation du code pour éviter les dépendances spécifiques à mon système local ont été des étapes clés pour résoudre ces problèmes et réussir à mettre en place et pousser sur GitHub.</p>
+<p>Pour le package R, nous avions développé plusieurs scripts R, notamment pour l’application Shiny et pour l’algorithme de machine Learning et il fallait les placer dans un package. J’ai suivi un autre tutoriel en ligne qui expliquait étape par étape comment créer un package R en utilisant les outils de base. Après avoir vérifié que tout fonctionnait correctement, j’ai également déposé ce package sur GitHub afin de le rendre accessible et réutilisable par d’autres.</p>
+<p>En conclusion cette étape de création de package a été une expérience enrichissante, même si ca a été compliqué. Elle nous a permis de mieux comprendre les bonnes pratiques de structuration de projet en Julia et en R et l’utilités de l’intégration avec GitHub.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

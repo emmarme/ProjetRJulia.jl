@@ -2,10 +2,7 @@
 title: "Rapport de Projet R et Julia"
 author: "Emma Roume et Jade Bordet"
 date: "`r Sys.Date()`"
-output:
-  html:
-    toc: true
-    theme: cosmo
+output: html_document
 pdf: default
 word: default
 ---
@@ -96,13 +93,6 @@ using ProjetRJulia
 accuracy, cm, recall_score, f1_score = evaluate_model(y_test, y_pred)
 ```
 
-Et celle en R: 
-
-```{r}
-
-
-```
-
 Pour moi, la principale raison de cette différence réside dans la nature des langages. R est un langage interprété, ce qui signifie que chaque ligne de code est traduite et exécutée à la volée par l’interpréteur. Ça peut entrainer des ralentissements, surtout quand il s’agit de tache intensive comme la création des arbres de décision. Julia lui est un langage compilé à la volée, ce qui lui permet d’exécuter des codes plus rapidement et plus efficacement. Cette différence de fonctionnement a donc un impact direct sur les performances, particulièrement pour des algorithmes de machine Learning qui nécessitent des calculs répétitifs sur de grandes quantité de données
 Donc pour mon code, Julia a montré de meilleures performances en machine Learning.
 
@@ -110,11 +100,13 @@ J’ai essayé de faire quelques visualisations sur R et Julia. L’idée était
 
 Voici quelques exemples de visualisations faites:
 
-```{julia}
+```{julia, echo=False}
 using ProjetRJulia
 using DataFrames
 using Plots
 using StatsPlots
+
+gr()
 
 #Charger le dataset
 data = ProjetRJulia.load_data()
@@ -149,6 +141,7 @@ Ensuite j’ai rencontré des problèmes de version. Mon package était défini 
 Le dernier problème était lié à la gestion de la base de données. Sur GitHub, le chemin pour accéder a mon fichier de données n’était pas valide, car il faisait référence au chemin local de mon ordinateur. Pour contourner ce problème, j’ai créé une fonction permettant de charger dynamiquement le dataset, de manière que le package puisse être utilisé par n’importe qui, peu importe ou il est installé. Cette fonction ne dépend désormais que du répertoire spécifié dans le package, ce qui rend l’utilisation du package plus flexible et compatible sur différentes machines.
 
 En résume, la configuration correcte de l’environnement, la gestion des versions des packages et l’adaptation du code pour éviter les dépendances spécifiques à mon système local ont été des étapes clés pour résoudre ces problèmes et réussir à mettre en place et pousser sur GitHub.
+
 
 Pour le package R, nous avions développé plusieurs scripts R, notamment pour l’application Shiny et pour l’algorithme de machine Learning et il fallait les placer dans un package. J’ai suivi un autre tutoriel en ligne qui expliquait étape par étape comment créer un package R en utilisant les outils de base. Après avoir vérifié que tout fonctionnait correctement, j’ai également déposé ce package sur GitHub afin de le rendre accessible et réutilisable par d’autres.
 
