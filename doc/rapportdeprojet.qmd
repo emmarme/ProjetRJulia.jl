@@ -21,3 +21,8 @@ Ce rapport retrace notre parcours tout au long de ce projet, une aventure pleine
 Ce document sert également de synthèse, il va nous permettre de revenir sur les difficultés, les points forts et faibles de notre projet mais aussi de présenter la stratégie mise en place.
 
 
+
+```{julia}
+using ProjetRJulia
+accuracy, cm, recall_score, f1_score = evaluate_model(y_test, y_pred)
+```
