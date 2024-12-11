@@ -33,45 +33,56 @@ Jade Bordet
 # Plan 📋
 
 Voici le plan :  
-1. Context   
-2. Goals   
-3. Stakeholders   
-4. Accomplished tasks   
-5. Future actions   
-6. Challenges  
-7. Conclusion  
-
+1. Introduction   
+2. Début du projet   
+3. Medals Prediction  
+4. Breast Cancer   
+5. Shiny  
+6. Snake Game  
+7. Snake Game Dispatching  
+8. Création des Packages
 ---
 
-# Context 
-
-
-
----
-
-# Goals 
+# Introduction
 
 
 
 ---
 
-# Stakeholders
----
+# Début du projet
 
-# Accomplished tasks
 
----
-
-# Future actions  
 
 ---
-# Challenges
+
+# Medals Prediction
+
+
 ---
-# Conclusion ✅
+
+# Breast Cancer
+
+---
+
+# Shiny  
+
+
+---
+
+# Snake Game
+
+
+---
+# Snake Game Dispatching
+
+---
+
+# Création des Packages 
+
+---
 
 Merci pour votre attention ! 😊  
-Des questions ?  
-Contactez-moi : 
+Des questions ?   
 
 
 
