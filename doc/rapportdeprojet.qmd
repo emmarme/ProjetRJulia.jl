@@ -117,7 +117,7 @@ J’ai essayé de faire quelques visualisations sur R et Julia. L’idée était
 
 Voici quelques exemples de visualisations faites:
 
-```{julia, echo=FALSE}
+```{julia, include=FALSE}
 using ProjetRJulia
 using DataFrames
 using Plots
@@ -140,7 +140,12 @@ color_map = Dict(0 => :red, 1 => :blue)
 
 p5=boxplot(data.diagnosis, data.area_se, title="Boxplot of area_se by Diagnosis", xlabel=["Bénin","Malin"], ylabel="area_se", legend=false)
 
-p6=boxplot(data.diagnosis, data.concavity_worst, title="Boxplot of concavity_worst by Diagnosis", xlabel=["Bénin","Malin"], ylabel="concavity_worst", legend=false)
+p6=boxplot(data.diagnosis, data.concavity_worst, title="Boxplot of concavity_worst by Diagnosis", xlabel=["Bénin","
+
+
+
+
+Malin"], ylabel="concavity_worst", legend=false)
 
 # Afficher les graphiques dans un layout
 plot(p1, p2, p3, p4, p5, p6, layout=(3, 2),size=(1000, 800))
