@@ -8,4 +8,6 @@ include("medalsprediction.jl")
 
 include("snakegame.jl")
 
+include("snakedispatching.jl")
+
 end
