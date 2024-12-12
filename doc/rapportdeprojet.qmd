@@ -1,7 +1,7 @@
 ---
 title: "Rapport de Projet R et Julia"
-author: "Emma Roume et Jade Bordet"
-date: "10/12/2024"
+author: "Emma Roume Jade Bordet"
+date: "12/12/2024"
 format: html
 pdf: default
 word: default
@@ -156,6 +156,338 @@ plot(p1, p2, p3, p4, p5, p6, layout=(3, 2),size=(1000, 800))
 
 J’ai aussi essayé de me servir de Rulia pour quand même essayer un petit peu mais j’ai beaucoup de mal à comprendre et avec tout les autres problèmes qui sont apparus je n’ai pas bien eu le temps de m’y intéresser plus.
 
+
+## Shiny
+
+Pour commencer le Shiny, comme nous ne connaissions pas, nous commençons par écrire les premières questions qui nous viennent qui sont en générale très basiques mais qui permettent de construire la base de nos recherches à venir :
+
+- A quoi ca sert ? :
+Pour commencer, Shiny est un package R développé par RStudio qui permet de créer des applications web interactives directement depuis le langage R. Ces applications sont particulièrement utiles pour des visualisations de données, des analyses interactives.
+
+Principales caractéristiques de Shiny :
+
+→ Interaction dynamique : Shiny permet de créer des applications où l'utilisateur peut interagir avec les graphiques et les résultats en temps réel (par exemple, filtrer des données, ajuster des paramètres, etc.).
+
+→ Facilité d'utilisation : Il est conçu pour être utilisé directement par des statisticiens et des data scientists sans qu'ils aient besoin de maîtriser des technologies web comme HTML. La syntaxe est relativement simple pour les utilisateurs familiers avec R.
+
+→ Intégration avec R : Il peut être utilisé avec tous les packages et fonctions R, ce qui permet de réaliser des analyses de données complexes et d'afficher les résultats dans une interface web interactive.
+
+Déploiement de l'application :
+
+Une fois que l’ application Shiny est crée, il est possible de la déployer de plusieurs façons :
+
+•	Localement : Exécuter une application Shiny sur son propre ordinateur.
+
+•	Sur un serveur : Utiliser des services comme shinyapps.io (service en ligne de RStudio) pour déployer des applications Shiny sans nécessiter de serveur.
+
+•	Serveur RStudio : Déployer une application sur votre propre serveur RStudio.
+
+-Comment ca marche ?
+
+Shiny fonctionne en combinant deux éléments principaux : l'interface utilisateur (UI) et la logique côté serveur. Lorsqu’on exécute une application Shiny, l'interface est générée et affichée dans un navigateur web, et les interactions de l'utilisateur (comme les clics ou les ajustements de paramètres) sont envoyées au serveur pour traiter les données, puis les résultats sont renvoyés à l'utilisateur.
+
+Plus en détails :
+
+Une application Shiny est composée de deux parties principales :
+
+•	L'interface utilisateur (UI) : C'est ce que l'utilisateur voit dans le navigateur. Cela inclut les boutons, les champs de texte, les graphiques et tout autre élément visuel de l'application.
+
+•	Le serveur : C'est la partie qui contient la logique. Elle prend en charge les calculs, l'analyse des données, et la mise à jour dynamique de l'interface utilisateur en fonction des entrées de l'utilisateur.
+
+1.	Lancer l'application : Lorsqu'une application Shiny est lancée, le serveur et l'interface utilisateur sont chargés en même temps.
+
+•	L'interface utilisateur définit la structure (disposition des éléments interactifs).
+
+•	Le serveur contient la logique pour traiter les actions de l'utilisateur.
+
+2.	Interaction avec l'interface : L'utilisateur interagit avec l'interface, par exemple en ajustant un curseur, en sélectionnant une option dans une liste déroulante, ou en cliquant sur un bouton.
+
+•	Ces actions génèrent des entrées qui sont envoyées au serveur.
+
+3.	Traitement des entrées par le serveur : Le serveur reçoit les entrées, les traite (en effectuant des calculs, en générant des graphiques, en filtrant les données, etc.), et renvoie les sorties.
+
+•	Les sorties sont généralement des graphiques, des tableaux, ou des textes qui sont mis à jour dans l'interface utilisateur.
+
+4.	Rafraîchissement de l'interface : L'interface utilisateur se met à jour en fonction des nouvelles données ou des résultats fournis par le serveur. Ce processus est dynamique et en temps réel.
+
+- Quels avantages ?
+
+1.	Interactivité .
+2.	Accessibilité
+3.	Facilité d'intégration avec R : il est possible d’utiliser toutes les fonctionnalités de R dans une application Shiny, qu'il s'agisse de visualisations (ggplot2, plotly), d'analyses statistiques, ou de traitement de données.
+
+Globalement, Shiny est très bien pensé pour partager des résultat, faire une présentation interactive, rassembler des connaissances dans une interface ludique et simple d’utilisation.
+Une fois répondu à ces questions nous avons donc chercher de la documentation pour savoir par ou commencer le code et surtout quel type de theme le Shiny prendrait.
+
+Pendant les séances qui suivent, on travaille en parallèle sur la création  de la base de données et le développement du futur Shiny qui contiendra tout les résultats du machine learning.
+Le code que j’ai regardé (trouvé sur github) montre un d’interaction avec le shiny via des « bouton ». En regardant le code de github, je vois  qu’il est posssible de faire apparaître des « sous boutons » en cliquant sur le bouton principal.
+
+Je code alors Trois boutons principaux :
+- Homme
+- Femme
+- Pays
+qui sont globalement les prévision que l’on veut faire. Ensuite j’ajoute les sous-boutons qui devront apparaître qu’une fois que l’utilisateur à cliqué sur un bouton principal.
+
+Pour « Homme » j’ajoute les sous-boutons correspondant aux agtès masculin ainsi que le sous-bouton « individuel » et « par  équipe », de même pour « Femme » et je laisse le bouton « Pays » vide pour l’instant.
+
+Problèmes :
+
+ → Dans un premier temps, lorsque le Shiny se lance les sous-boutons n’apparaissent pas. Après quelques recherches, j’ai pu les faire apparaître en utilisant « observEvent » qui permet de faire apparaître un bouton secondaire lorsque le principale est cliqué.
+
+→ Un deuxième problème apparaît alors : lorsque que je clique sur les sous boutons la page ne change pas et n’affiche pas la phrase de test que j’ai mis dans le code. Je n’ai pas trouvé de problème (donc pas de solution) du côté des sous boutons. Désespérant un peu j’ai demandé de l’aide à un ami bien connu : « Chat GPT ». En fait je n’avais pas si bien compris le fonctionnement de « renderUI » et « updateUI » en en mettant plusieurs dans le code…
+
+→ Malgré tout des problèmes persistent. Par exemple, on ne peut plus revenir sur une autre page après avoir cliqué sur un sous-bouton (entre autre). Après 2 ou 3 séances à essayer de résoudre ces problèmes, j’ai découvert https://rstudio.github.io/shinydashboard/ ! (Merci Rémy!)
+Depuis lors, on décide de tout recommencer avec pour base ce que présente shiny dashboard. On reconstruit donc la structure énoncée précédemment. Mais avec Emma on estime qu’on a passé assez de temps à créer le shiny et comprendre comment ça marchait, qu’il fallait prioriser la suite du projet.
+
+Update :
+Le machine learning sur la gymnastique ayant échoué, nous avons réutilisé la structure du premier Shiny pour en faire un deuxième. Ce nouveau Shiny est assez simple. Il a globalement la même structure que que le précédent il y a quelques graphiques, ceux obtenus avec la nouvelle base de données qui nous a servie à tester le machine learning.
+Ce Shiny est la dernière chose qui a été faite dans le projet, nous n’avons pas eu le temps de le travailler dans le détail.
+
+## CART en Julia
+
+Pendant qu’Emma fait du machine learning, en R puis en Julia, je me motive à apprendre Julia à mon tour. L’idée est de commencer un algorithme CART (Classification And Regression Trees) en Julia pour apprendre la syntaxe de ce nouveau langage.
+
+Cette partie du projet correspond à mes premiers pas en Julia, langage que je n'avais jamais utilisé auparavant. L'algorithme rpart en R (Recursive Partitioning and Regression Trees) va me servir de guide, c’est un modèle d'arbres de décision utilisé pour des tâches de régression et de classification. Il fait partie des outils standards en R pour l’analyse des données et est basé sur l’algorithme CART (Classification And Regression Trees).
+Grace à Rstudio je ressors la liste des fonctions que rpart, en selectionne quelques unesnqui me paraissent abordables pour commencer. Et c’est parti !
+
+L’objectif principal de ce projet était de :
+1.	Reproduire quelques fonctionnalités de l'algorithme rpart dans le langage Julia.
+2.	Apprendre et comprendre le langage Julia, en particulier ses particularités par rapport à R.
+
+Apprentissage de la syntaxe de Julia:
+
+Avant de commencer à travailler sur le projet proprement dit, j'ai dû consacrer une partie de mon temps à l'apprentissage du langage Julia, car il s'agissait de mon tout premier projet dans ce langage. Julia est un langage relativement récent, conçu pour les calculs numériques de haute performance et utilisé principalement dans le domaine de la science des données, des mathématiques et de l'analyse statistique mais comporte beaucoup d’autres facultés et peut se révéler utile et performent dans d’autre domaine.
+
+Le langage Julia se distingue de R par sa syntaxe plus proche de celle des langages de programmation tels que Python ou C (au moins sur la forme), sa gestion efficace de la mémoire et ses performances exceptionnelles pour des tâches computationnelles lourdes et le multiple dispaching.  
+
+Au commencement on utilise « mutable struct » pour définir les nœuds :
+En Julia, un mutable struct est une structure de données qui permet de modifier ses champs après sa création. Ce type de structure est utilisé pour représenter des objets dont l'état peut être modifié, ce qui est souvent nécessaire dans des algorithmes et c’est le cas pour la construction d'arbres de décision.
+
+Mutable Struct étant une notion nouvelle, voici ce que nous avons compris :
+
+1. Modification des champs de la structure pendant l'exécution
+Dans un arbre de décision, chaque nœud de l'arbre peut être soit une feuille, soit un nœud interne ayant des sous-arbres. L'état de chaque nœud (par exemple, les caractéristiques utilisées pour le split, le seuil de séparation, le label ou la valeur de la feuille) peut changer au fur et à mesure que l'algorithme de construction de l'arbre progresse.
+
+•	Exemple :
+Au fur et à mesure de l'algorithme de construction de l'arbre, il faut mettre à jour des informations comme feature, threshold, ou impurity pour chaque nœud. Avec un mutable struct, ces champs peuvent être modifiés en place pendant la construction de l’arbre.
+
+2. Efficacité des opérations
+En Julia, les structures immuables (créées avec struct) sont souvent utilisées pour des objets dont les valeurs ne changent pas après leur création. Cela permet à Julia de mieux optimiser la mémoire et les performances pour des types immuables. Cependant, pour des objets comme les nœuds d'un arbre de décision, où on a besoin de manipuler activement les valeurs au cours de l'exécution de l'algorithme, un mutable struct est préférable.
+
+3. Recursion sur l'arbre de décision
+Les algorithmes de construction d'arbres de décision, comme CART, reposent sur la récursion pour parcourir les nœuds et diviser les données. Chaque nœud peut contenir un sous-arbre gauche et un sous-arbre droit, et ces sous-arbres peuvent être modifiés à chaque itération.
+
+•	Exemple :
+Dans la fonction qui construit l'arbre, chaque nœud doit avoir des sous-arbres qui peuvent être assignés à ses champs left et right au fur et à mesure que l'algorithme divise les données. Ces sous-arbres peuvent être de nouveaux nœuds, et étant donné que l’arbre est modifié en place, un mutable struct est essentiel pour cela.
+
+Problèmes rencontrés:
+
+1. Compréhension du fonctionnement de rpart
+Le premier obstacle majeur rencontré a été de bien comprendre l’implémentation interne de l'algorithme rpart en R. L'algorithme repose sur une série de critères statistiques (tels que la réduction de l'impureté) pour diviser récursivement les données. La première étape a donc été de décortiquer l'algorithme.
+
+Pour cette étape, j’ai consulté la documentation de rpart et des ressources en ligne pour mieux comprendre les concepts sous-jacents des arbres de décision, comme la fonction splitter et l’utilisation de critères comme le Gini Index ou la moyenne des carrés des erreurs. J'ai aussi examiné plusieurs implémentations d'arbres de décision en R pour me familiariser avec la manière dont les décisions sont prises au sein de l'algorithme même si au final je n’ai pas sélectionné tous ce qui est énoncé au ci-dessus.
+
+
+2. Problème :
+La fonction pour construire l'arbre de décision (labels_node) implique une récursivité pour explorer les sous-arbres gauche et droit. J'ai rencontré un problème avec la récursivité, notamment lors de la gestion des nœuds de type Nothing, ce qui m’a forcé à revoir ma logique pour m'assurer que la fonction soit robuste à ces cas-là.
+
+Solution mise en place :
+J'ai dû ajouter des vérifications explicites pour garantir que les sous-arbres gauche et droit étaient bien définis avant d'appeler récursivement la fonction labels_node
+
+
+3. Difficulté à choisir et implémenter le critère de séparation (impureté de Gini)
+Problème :
+Le critère de séparation utilisé dans rpart pour diviser les nœuds est l’impureté de Gini. Bien que le calcul de l’impureté de Gini soit relativement simple en théorie, la mise en œuvre en Julia m’a posé quelques difficultés. Au départ, j’ai eu du mal à optimiser cette fonction et à m'assurer que l'indexation des classes était correcte.
+Le défi résidait dans la gestion de l’indexation des labels et dans le calcul de la probabilité de chaque classe dans un sous-ensemble donné.
+
+Solution  :
+J’ai d’abord écrit une fonction de base qui calcule l'impureté de Gini, puis j’ai vérifié plusieurs fois les valeurs des probabilités en utilisant des impressions de débogage. J’ai pris soin de gérer les divisions par zéro, ce qui peut survenir si une classe n’est présente que dans une seule branche du sous-ensemble.
+
+Conclusion:
+
+Voici ce que je retiens de Julia dans mon apprentissage : 
+Pas de notion d'attributs
+Julia n’utilise pas explicitement la notion d'attributs d'objets comme on le voit en orienté objet classique (par exemple en Python). Toutefois, Julia adopte un modèle de programmation orientée objet (OOP) basé sur des types composites et des méthodes surchargées. Ce modèle est plus flexible et moins contraignant que l’OOP traditionnel d'autres langages, ce qui peut le rendre plus adapté à certains types de projets.
+
+Les principaux points communs:
+
+1.	Système basé sur des appels de fonctions : Tant R que Julia sont basés sur un système où les fonctions sont des objets de première classe et peuvent être passées comme arguments, retournées et stockées dans des variables.
+
+
+2.	Structures vectorielles et matricielles avec opérations associées : Les deux langages permettent de travailler avec des structures vectorielles, matricielles et des opérations vectorisées de manière native. Julia, cependant, est plus rapide dans le traitement de ces structures en raison de son optimisation à la compilation, tandis que R nécessite souvent des appels aux bibliothèques comme data.table ou dplyr pour des performances optimales.
+Mode Lisp-like avec expression : Julia s'inspire largement de Lisp en termes de manipulation d'expressions, ce qui permet une flexibilité de traitement et de métaprogrammation plus poussée. R, bien qu’ayant des aspects de ce modèle via des objets et des appels de fonctions, n’est pas aussi puriste dans cette approche.
+
+À la fois interprété et performant, il combine la flexibilité d'un langage de haut niveau avec des performances proches de celles des langages compilés, notamment grâce à son mécanisme de compilation Just-In-Time (JIT). Ce mécanisme génère du code précompilé en C avant l'exécution, permettant ainsi d'éviter l'overhead typique des langages interprétés, tout en éliminant la nécessité d'écrire du code C++ comme dans R avec Rcpp.
+
+L'un des points forts de Julia est son interfaçage natif avec C, ce qui permet une interaction directe avec des bibliothèques externes sans nécessiter de bibliothèques intermédiaires, simplifiant ainsi l'intégration de composants C dans les programmes Julia. Julia combine aussi des structures de données immutables et mutables, offrant une grande flexibilité dans la gestion de la mémoire et des performances, tout en permettant d’exploiter au mieux les capacités de calcul parallèle dès le départ.
+
+Le langage met l’accent sur une approche modulaire avec un système de packages unifié, semblable à celui de R, qui facilite l’installation et l’utilisation des bibliothèques tierces. En termes d’interactivité, Julia offre un mode utilisateur avec un typage dynamique et un environnement REPL, permettant aux utilisateurs de travailler de manière intuitive.
+Pour les développeurs, Julia se distingue par son modèle de programmation orientée objet basé sur le concept de multiple dispaching. Cette approche permet de définir plusieurs méthodes pour un même nom de fonction, selon les types des arguments, ce qui rend le code plus flexible et lisible tout en restant performant. Contrairement aux classes traditionnelles, Julia définit des types qui peuvent être créés par les utilisateurs, ce qui s'intègre parfaitement dans une hiérarchie de types prédéfinis.
+
+Rapidement, je me suis lassée de coder des fonctions ici et là. C’était très instructifs, plutôt efficace pour apprendre la syntaxe de Julia, le fait d’être guidée permettait d’apprendre pas à pas, de savoir précisément quelle notion chercher.
+
+Le projet m’a donc permis de non seulement apprendre Julia, mais aussi de mieux comprendre l'implémentation des algorithmes d'arbres de décision, en particulier l'algorithme CART. Cette partie du projet aura pris plusieurs séances, le pus long a été de trouver par où commencer, de faire les premiers pas dans le langage, de trouver des fonctionnalités intéressantes pour optimiser ou réussir certaines fonctions. On aurait pu continuer longtemps à recoder rpart en Julia, il reste beaucoup de fonctions non exploitées, mais une fois que l’on a compris le fonctionnement de Julia, on a envie de s’amuser un peu plus à Coder (oui avec un grand C) qu’à recoder. D’où la partie suivante qui repose sur une tentative de mini jeu en Julia ET en R afin de comparer les deux langages mais cette fois ci en partant de 0.
+
+## Snake Game
+
+Au moment où l’on décide de faire du Julia d’un point de vue développement, il ne reste plus que 3 séances. Conscientes que nous n’arriverons pas à un mini-jeu aboutit on prend alors la décision de faire une comparaison entre R et Julia sur ce mini-jeu qui serait le Snake.
+
+### Snake en R (résumé rapide)
+
+Pour commencer on se dit qu’il serait intéressant de le faire dans un shiny (Une pierre deux coups)  pour afficher le jeu.
+Coder le serpent ainsi que le « plateau » de jeu se révèlent assez simple, les afficher dans  l’app shiny également. Mais après quelques heures, des essais infructueux (et quelques nerfs passés) impossible de faire bouger le serpent dans l’app Shiny.
+
+Emma suggère alors d’utiliser ggplot2 pour l’afficher. Là encore, pas mal de temps passé sur ce passage, très facile d’afficher le serpent mais toujours pas de mouvement.
+
+Le temps nous manquant, on décide de changer rapidement de stratégie. Je me renseigne sur le codage d’un snake en python pour pouvoir comparer (et parce qu’il est beaucoup plus facile de trouver des vidéos de snake codés en python qu’en R). Sur une vidéo Youtube, ils lancent le snake dans un terminal. On s’inspire alors de cette technique, le résultat est moins beau mais à pour avantage de fonctionner.
+
+Ça ne ressemble pas encore à grand-chose, mais c'est un début.
+Le serpent avant avance mais uniquement lorsque le bouton ‘entrer’ est tapé et on ne peux pas changer de direction.
+
+Après plusieurs heures à essayé de trouver une solution on décide d’arrêter là pour R. Clairement Rstudio ne semblait pas adapté, nos idées pour faire fonctionner le code ne tarissent pas, pour autant nos essais restent infructeux. Dans un jeu comme Snake, on a besoin de gérer des événements en temps réel, comme la détection des touches appuyées (pour changer la direction du serpent). R n'a pas de support natif pour la gestion d'événements comme le clavier, ce qui complique la gestion des interactions utilisateurs en temps réel. On a aussi pu constater que l'affichage graphique dans R est principalement destiné à des graphiques statiques ou interactifs pour l'analyse de données. 
+
+Bien que l’on puisse dessiner des formes simples avec des fonctions comme plot() ou points(), ces outils ne sont pas conçus pour des animations fluides.
+
+On décide d’avancer malgré tout et de passer au code de Snake en Julia. Avec la dernière séance qu’il nous reste, on aimerait arrivé au même niveau avec ce nouveau Snake qu’avec celui codé en R pour pouvoir comparer ce que l’on trouve .
+
+### Snake en Julia
+
+Le début est assez simple. Pour pouvoir comparer, on décide d’afficher le Snake sur le terminal comme pour R. Il suffit alors de « traduire » le code fait avant en R en Julia. Le début (pour afficher le serpent) est donc assez rapide .
+
+Maintenant pour le faire avancer :
+
+Dans le code, l'avancement du serpent est géré principalement par la fonction move_snake(snake::AbstractSnake), qui met à jour la position du serpent en fonction de sa direction actuelle.
+
+-  Lire la direction actuelle du serpent
+La direction actuelle du serpent est stockée dans l'attribut snake.direction de l'objet Snake. Au départ, cette direction est définie à 'D', ce qui correspond à "droite".
+
+- Obtenir le vecteur de direction
+Dans la fonction move_snake, la direction du serpent est utilisée pour déterminer son mouvement. Les directions sont définies dans un dictionnaire DIRECTIONS :
+
+Chaque clé (comme 'Z', 'S', 'Q', 'D') est associée à un tuple (dx, dy), représentant le déplacement sur l'axe horizontal (dx) et l'axe vertical (dy). 
+
+Par exemple :
+•	'Z' (haut) : (0, -1) → il ne bouge pas horizontalement (0), mais se déplace de -1 sur l'axe vertical (vers le haut).
+•	'S' (bas) : (0, 1) → il ne bouge pas horizontalement (0), mais se déplace de +1 sur l'axe vertical (vers le bas).
+•	'Q' (gauche) : (-1, 0) → il se déplace de -1 sur l'axe horizontal (vers la gauche) et reste au même niveau verticalement (0).
+•	'D' (droite) : (1, 0) → il se déplace de +1 sur l'axe horizontal (vers la droite) et reste au même niveau verticalement (0).
+
+- Calculer la nouvelle position de la tête:
+Dans la fonction move_snake(snake::AbstractSnake), la tête du serpent est récupérée en prenant le premier élément du corps (snake.body[1]), qui est un tuple (x, y) représentant les coordonnées de la tête.
+
+- Mettre à jour le corps du serpent:
+Une fois que la nouvelle position de la tête est calculée, le corps du serpent est mis à jour. La nouvelle position de la tête (calculée dans new_head) est ajoutée au début du corps (new_head; snake.body[1:end-1]), ce qui fait avancer le serpent d'une case. Le corps du serpent (sauf la tête) est décalé d'une position vers l'avant.
+
+Pendant 2 jours nous avons eu un problème : Le serpent ne tournait que vers la droite ! Le problème venait de la fonction  new_head qui résultait de la « traduction » du code en R. Une fois remaniée comme énoncé ci-dessus le serpent tournait correctement.
+
+3. Gérer les collisions avec les directions opposées
+Il faut penser à ce que le serpent ne puisse pas faire un demi-tour, c'est-à-dire aller directement dans la direction opposée. Par exemple, si le serpent va à droite, il ne doit pas pouvoir immédiatement aller à gauche (cela créerait une collision avec lui-même). C'est ce qui est géré dans le bloc handle_input, où il vérifie que la nouvelle direction n'est pas opposée à la direction actuelle.
+
+Normalement cette spécificité est bien implémentée, on ne perd pas la partie en faisant un demi-tour, on ne peut simplement pas le faire.
+Bon, il reste tout de même un problème, lorsqu’on veut faire un demi-tour, comme ce n’est pas possible, le serpent avance tout de même d’une case par défaut...personne n’est parfait...
+
+
+4. Les problèmes non résolus….
+
+Malheureusement, cette partie du projet ayant commencée sur le tard nous n’avons pas eu le temps de le mener à terme, sans aucun problème avec un jeu ayant une interface intéressante etc...Après ce n’en était pas le but spécialement mais rendre un travail à moitié fini reste frustrant.
+Je lance le code, et le serpent avance… mais, ça reste saccadé à cause de cette touche « ENTRER » qu’il faut taper entre chaque commande et sans laquelle le serpent n’avance pas. Ce n’est pas fluide. L’idée était d’ajouter une notion de temps au code permettant de dire par exemple « je veux que le serpent avance d’une position toutes les demi-seconde ».
+
+Voici quelques tests que j’ai réalisés :
+
+Tentative 1 :
+1.	Gestion du temps avec now() :
+•	Utilisation de now() de la bibliothèque Dates pour mesurer le temps écoulé depuis le dernier mouvement du serpent.
+
+•	Le serpent avancerait toutes les secondes, contrôlé par la condition if current_time - last_move_time >= Second(1).
+
+2.	Amélioration de la boucle de jeu :
+•	La boucle de jeu continue à lire l'entrée utilisateur tout en avançant le serpent toutes les secondes. L'entrée utilisateur ne bloque plus la boucle et permet de changer la direction à tout moment.
+
+3.	sleep(0.05) :
+•	Un petit délai pour réduire la charge CPU, mais sans bloquer la boucle principale qui gère l'affichage et les mouvements.
+Malheureusement cela ne fonctionne pas à faire avancer le serpent tout seul.
+
+Tentative 2 :
+•	Le problème majeur est lié à l’utilisation de now() dans le contexte de gestion de temps, ce qui n'est pas aussi simple que de calculer l'écart en secondes avec now(). On tente alors une approche plus stable en combinant sleep() et un mécanisme pour déplacer automatiquement le serpent à intervalle régulier.
+
+Potentielle solution:
+Nous remplaçons l'usage de now() pour le contrôle du timing par une variable qui suit l'état du jeu et met à jour les mouvements du serpent à intervalles réguliers, sans bloquer la lecture de l’entrée clavier.
+
+Modifications principales :
+1.	Utiliser une simple variable last_move_time pour gérer l'intervalle de mouvement.
+2.	Vérifier si le temps écoulé depuis le dernier mouvement est supérieur à une seconde avant de déplacer le serpent.
+
+Il y a eu encore plusieurs autres tentatives sans aucun résultats satisfaisant sauf apparition de nouveaux bugs sur le déplacement du serpent, nous décidons donc reprendre l’ancien code et essayé de rendre plus intuitif et fluide le déplacement du serpent. En commençant par faire avancé le serpent juste avec les touches directionnelles sans avoir à appuyer sur entrer
+
+Le problème vient du fait que readline attend que l'utilisateur appuie sur "Entrée" avant de récupérer la commande, ce qui bloque l'exécution du jeu pendant ce temps. Pour résoudre cela, il faudrait utiliser une fonction permettant de lire l'entrée clavier de manière non-bloquante, c'est-à-dire que le programme continue à tourner sans attendre que l'utilisateur appuie sur "Entrée".
+
+Une solution pour cela est d'utiliser la bibliothèque Terminal de Julia, qui permet de lire les touches pressées de manière non-bloquante.
+
+Mais le problème persiste et viendrait potentiellement du fait que la boucle principale du jeu ne prend pas en compte de manière fiable le passage du temps pour déplacer le serpent toutes les secondes. Actuellement, le code essaie de vérifier si une seconde est passée à l'intérieur de la boucle, mais l'appel à time() dans la condition if time() >= time_to_move n'est pas fiable dans un environnement interactif, car le programme attend une entrée de l'utilisateur. Cela  interférerait avec la gestion du temps et ne pas permettre au serpent d'avancer comme prévu.
+
+Modifications principales :
+1.	Remplacer la gestion du temps à l'intérieur de la boucle par un contrôle du temps plus simple.
+2.	S'assurer que le serpent avance toutes les secondes sans dépendre de l'attente de l'entrée de l'utilisateur.
+
+
+Explication des changements :
+1.	Tâche asynchrone pour avancer le serpent :
+•	La fonction advance_snake! est une tâche asynchrone (@async) qui avance le serpent d'une case toutes les secondes en utilisant sleep(1).
+
+•	La référence mutable snake_ref est utilisée pour que cette tâche puisse modifier le serpent dans la boucle de jeu principale sans bloquer l'exécution du programme.
+
+2.	Gestion de l'entrée utilisateur :
+•	Pendant que la tâche asynchrone avance le serpent, la boucle principale du jeu est dédiée à la gestion de l'entrée utilisateur (changement de direction, quitter le jeu, etc.) et à la vérification des collisions.
+
+3.	Référence mutable pour le serpent :
+•	En utilisant Ref(snake) pour la variable snake, nous permettons à la tâche asynchrone d'accéder et de modifier directement l'état du serpent tout en étant utilisé dans le reste du code.
+Cela permet au serpent de se déplacer automatiquement toutes les secondes, tout en permettant à l'utilisateur de contrôler la direction et de voir les mises à jour du jeu sans interruption.
+
+### Conclusion
+
+Il reste énormément de choses qui ne vont pas dans le snake Julia (et a fortiori dans le Snake R…) :
+
+→ Le serpent n’avance pas de lui même malgré tout nos essais
+→ Le déplacement est saccadé, parfois le corps saute une case (mais pas toujours!) même si je soupçonne la fonction new_head d’en être à l’origine sans avoir trouvé pourquoi...(au moins le serpent tourne!)
+→ La nourriture ne réapparaît pas, une fois la pomme mangée le jeu s’arrête (à vrai dire nous n’avons pas eu le temps de nous intéresser à cette problématique)
+
+Ce snake à était fait sur un coup de tête tout à la fin du projet. Ce qu’il faut retenir c’est qu’il nous a bien compliqué la vie, nous a beaucoup appris sur les capacités et les possibilités qu’offre Julia.
+
+Il était intéressant de tester avec R, mais au bout de quelques heures nous avions compris que R ne nous permettrait pas (en tout cas pas rapidement) d’arriver à un résultat concluant.
+
+Julia est un langage de programmation exceptionnel, en particulier lorsqu'il s'agit de créer des mini-jeux et de travailler sur des projets nécessitant à la fois des performances et une simplicité de développement.
+
+L'un des plus grands avantages de Julia était la rapidité d’exécution. La syntaxe de Julia ressemblait dans un premier temps à Python, claire et intuitive ce qui le rend accessible aux débutants tout en étant puissante pour les développeurs.
+
+Le snake montre bien comment Julia peut permettre de structurer un jeu de manière concise et lisible, tout en gérant facilement des fonctionnalités telles que les entrées utilisateur, l'affichage, et la gestion de la logique du jeu. R n’était pas mauvais sur ce point mais le côté intuitif de Julia facilitait cet aspect.
+
+En nous renseignant on a vu que même pour un mini-jeu, Julia permet de tirer parti des fonctionnalités de parallélisme et de concurrence. Si notre jeu était amené à devenir plus complexe (par exemple, si on ajoutes des calculs physiques ou des IA), Julia permettrait de paralléliser les tâches sans effort supplémentaire. Cela peut rendre ton jeu plus fluide et réactif, même sur des machines avec plusieurs cœurs de processeur.
+
+Viennent ensuite tous les aspects de Julia que nous n’avons pas abordés. Dans le snake dans le but de comparer R et Julia nous n’avons pas chercher à utiliser les capacités de Julia pour les graphiques (même si on en utiliser pour le machine learning). Toujours avec le snake nous n’avons pas non plus cherché à utiliser les capacités de Julia permettant d'interagir facilement avec du code C ou Python, offrant une flexibilité supplémentaire en cas de besoin.
+
+Cependant !
+Nous avons fait un petit bonus. Notre cher professeur nous a tant parlé du « multiple dispatching », a.k.a la plus grande arme de Julia. Alors pour apprivoiser cette nouvelle notion, nous nous sommes renseignées et avons essayé de faire ce même code Snake en le rendant propice au multiple dispatching. (Le code fait exactement la même chose ceci dit).
+
+## Snake Game avec du multiple dispatching
+
+Dans le code précédent, il n'y a pas de multiple dispatching en tant que tel, mais après renseignement, il est possible d’en ajouter pour exploiter cette fonctionnalité puissante de Julia, qui permet d'avoir plusieurs méthodes pour une même fonction, adaptées à différents types d'arguments. Le multiple dispatch permet de définir différentes implémentations d'une fonction selon les types des arguments passés.
+Les premières idées simples de multiple dispatch à intégrer dans le code auxquelles on a pensé sont:
+
+Ce que j'ai modifié pour utiliser le multiple dispatch :
+1.	Types différents pour les serpents :
+•	J'ai créé un nouveau type LongSnake, qui hérite de AbstractSnake, et qui contient une propriété speed pour modifier la vitesse de déplacement.
+
+•	Vous pouvez ajouter plus de types, comme des serpents qui grandissent plus rapidement ou qui ont des comportements différents.
+
+2.	move_snake est dispatché selon le type de serpent :
+•	La fonction move_snake se comporte différemment selon qu'il s'agit d'un Snake ou d'un LongSnake. Cela permet d'avoir un comportement différent, par exemple en fonction de la vitesse dans le cas d'un LongSnake.
+
+3.	Le game_loop utilise un LongSnake :
+•	Le jeu utilise désormais LongSnake par défaut pour montrer comment cela pourrait fonctionner avec un serpent ayant des comportements distincts.
+Cette approche permet de facilement étendre le jeu à différents types de serpents, chacun ayant ses propres caractéristiques et comportements. On pourrait imaginer plusieurs mode de jeu, plus ou moins classique. Avec plus de temps et un code plus complexe on aurait pu laisser le choix au joueur sur la taille et les spécificité du serpent. On aurait pu ajouté des types de nourritures différentes et dont le multiple dispaching aurait grandement facilité le codage. Cela offre une base pour ajouter davantage de fonctionnalités ou types de serpents sans modifier profondément la structure du code.
+
+PROBLEME ET CONCLUSION: les directions ne fonctionnent plus et le corps du serpent s’agrandit sans avoir mangé. Ce problème n’aura jamais été résolu et nous n’avons malheuresement plus le temps. On est en revanche contente d’avoir tout de même fait ce code avec du mulitple dispaching même si on ne peut pas voir son impacte directement (visuellement) lorsque le jeu est lancé. Intérieurement, nous avons compris comment le multiple dispaching fonctionnait.
+
 ## Création de Packages
 
 Un des dernières étapes de notre projet a été de créer les packages qui regroupe toutes nos fonctions créées pour les rendre facilement réutilisables. Nous avons créé un package R et un autre Julia. Ce qui a été très compliqué au début surtout pour le package Julia.
@@ -179,6 +511,88 @@ Pour le package R, nous avions développé plusieurs scripts R, notamment pour l
 En conclusion cette étape de création de package a été une expérience enrichissante, même si ca a été compliqué. Elle nous a permis de mieux comprendre les bonnes pratiques de structuration de projet en Julia et en R et  l’utilités de l’intégration avec GitHub.
 
 
+## Bilan du projet
+
+Finalement ce projet est allé dans tout les sens ! Il est bien loin le temps où nous voulions prédire les médailles aux prochains JO. Nous ne nous rendions pas compte de la tache qui nous attendait…
+
+Lorsqu’on s’est aperçue que le projet ne menait nul part il a fallut qu’on réagisse vite. Nous ne voulions pas recommencer un brain storming et tout ce qui s’en suit. Nous voulions réutiliser ce que nous avions déjà pour continuer. Finalement notre projet s’est transformé en comparaison R/Julia sur tout les plans.
+
+Il est maintenant temps de faire un récapitulatif :
+
+Résumé des Différences Pour le développement du jeu:
+
+1.	Langage et Syntaxe: Le code en R est basé sur des structures comme les listes et les data.frame, tandis qu'en Julia, des struct et des Vector sont utilisés pour des performances et une gestion de mémoire plus optimisées.
+
+2.	Affichage: Les deux utilisent la console pour afficher la grille, mais en R, l'affichage est plus simple avec cat, tandis qu'en Julia, des séquences d'échappement ANSI sont utilisées pour effacer l'écran.
+
+3.	Gestion de la Direction: En R, la direction est un vecteur simple (ex. c(1, 0)), tandis qu'en Julia, un dictionnaire est utilisé pour associer des caractères à des vecteurs de direction.
+
+4.	Entrées Utilisateur: En R, readline est utilisé pour obtenir l'entrée utilisateur, et en Julia, readline lit l'entrée sans blocage, mais get_input est utilisé de manière non-bloquante.
+
+5.	Performance: En raison des types de données plus avancés et de la gestion plus fine de la mémoire en Julia, l'implémentation peut potentiellement être plus performante pour des jeux plus complexes ou plus grands.
+
+Dans l'ensemble, les deux implémentations suivent une structure similaire mais utilisent des approches différentes en fonction des capacités et des idiomes de chaque langage.
+
+Le choix entre les deux implémentations dépend de plusieurs critères liés au développement, tels que la lisibilité, la performance, la flexibilité du code, ainsi que l'apprentissage des concepts liés aux langages utilisés. Voici nos avis plus détaillés de chaque langage et de leur intérêt d'un point de vue développement.
+
+1. Lisibilité et Simplicité
+•	R:
+•	Avantages:
+•	Syntaxe simple et directe : R est un langage relativement simple à apprendre, surtout pour ceux qui sont habitués à des langages orientés statistique ou scientifique. Les opérations sur des vecteurs et des listes sont directes.
+•	Lisibilité immédiate : Le code est assez linéaire, avec des fonctions simples pour dessiner la grille, déplacer le serpent, etc. Cela peut être plus facile à comprendre pour un débutant.
+•	Inconvénients :
+•	Le code utilise des variables globales et des manipulations de listes, ce qui peut rendre le suivi de l'état du jeu moins explicite, surtout si on complexifie l'application.
+•	L'utilisation de cat et de readline pour gérer l'affichage et les entrées clavier peut être un peu moins pratique pour des applications plus complexes, et cela peut limiter la flexibilité du jeu (par exemple, dans des interfaces graphiques).
+
+•	Julia:
+•	Avantages:
+•	Syntaxe claire et moderne : Julia utilise une syntaxe propre et bien structurée. Le code utilise des struct pour le serpent et un Dict pour la gestion des directions, ce qui est plus modulable et extensible.
+•	Meilleure gestion des types : L'utilisation de types comme Vector{Tuple{Int, Int}} pour représenter les coordonnées du serpent rend les données plus structurées et clairement typées. Cela aide à éviter des erreurs liées aux types de données et rend le code plus prévisible.
+•	Inconvénients :
+•	La syntaxe de Julia peut être un peu plus complexe pour les débutants par rapport à R, notamment avec l'utilisation de struct et des types génériques. Cela peut nécessiter un peu plus d'efforts pour bien comprendre l'organisation du code.
+•	L'affichage de la grille en utilisant des séquences d'échappement ANSI (pour effacer l'écran) peut rendre le code moins portable ou moins clair, notamment pour des débutants.
+
+
+2. Performance et Scalabilité:
+•	R:
+•	Avantages :
+•	Rapidité pour les petites tailles de grilles : Le code en R fonctionnera bien pour des jeux de petite taille (par exemple, une grille de 10x10). R étant un langage très performant pour les calculs sur des vecteurs et des matrices, il peut être suffisant pour des jeux simples ou des prototypes rapides.
+•	Inconvénients :
+•	Manque de gestion mémoire optimisée : R n'est pas conçu pour les applications en temps réel sans interactions . La gestion des objets comme des listes ou des data.frame dans un jeu deviendrait rapidement trop coûteuse à mesure que le jeu se complexifie (par exemple, avec une grille plus grande ou plus de segments de serpent).
+•	Pas de gestion avancée des entrées/sorties en temps réel : Le code dépend des fonctions comme readline, qui sont bloquantes et peuvent nuire à l'interactivité en temps réel dans un jeu plus complexe.
+
+
+•	Julia:
+•	Avantages :
+•	Haute performance : Julia est un langage conçu pour la performance, notamment avec des opérations sur des tableaux (comme ceux utilisés pour la grille et le serpent). Sa gestion de la mémoire est plus optimisée que celle de R, et il est conçu pour les calculs numériques rapides, ce qui en fait un bon choix pour des jeux plus complexes ou qui nécessitent une mise à jour rapide.
+•	Parallélisme et extensibilité : Julia permet une mise en œuvre plus facile de fonctionnalités complexes et des améliorations de performance comme le parallélisme et les calculs vectorisés. Cela pourrait être utile si on décidait d'étendre le jeu (par exemple, augmenter la taille de la grille ou ajouter de nouvelles fonctionnalités).
+•	Inconvénients :
+•	Surcouche de performance pour des jeux simples : Si le jeu reste simple (petite grille, peu d'éléments), la performance supérieure de Julia ne sera pas pleinement exploitée, et la complexité du langage pourrait être superflue.
+
+
+3. Utilisation des Capacités Avancées du Langage
+•	R:
+•	Avantages :
+•	R est principalement utilisé pour des analyses statistiques et des traitements de données. Si votre objectif est de créer un jeu rapide en tant qu'exercice ou une simulation simple, R est suffisant et assez rapide pour des jeux de petite taille(mais avec des interactions).
+•	Inconvénients :
+•	R n'est pas conçu pour des applications interactives ou en temps réel. Les bibliothèques de gestion des événements clavier et de l'affichage sont limitées par rapport à d'autres langages comme Julia ou Python.
+
+
+•	Julia:
+•	Avantages :
+•	Julia est conçu pour des applications de haute performance et permet une meilleure utilisation des ressources, surtout pour des jeux en temps réel (même si nous n’avons pas réussis, nous avons vu qu’il existait des semblant de solutions là où nous n’avons rien trouvé pour R). Il permet également une intégration facile avec des bibliothèques de calcul scientifique, ce qui peut être utile pour des extensions futures (par exemple, des simulations physiques ou des calculs complexes dans le jeu).
+•	Inconvénients :
+•	Comme Julia est encore relativement jeune et moins utilisé pour des applications comme les jeux vidéo, certaines bibliothèques de gestion graphique ou d'interface utilisateur ne sont pas aussi matures que celles disponibles en R, Python ou C#.
+
+Conclusion : Lequel est le plus intéressant ?
+
+•	Si on recherche la simplicité et un développement rapide : Le code en R est plus facile à comprendre et à mettre en place pour des projets simples. C'est un bon choix pour un débutant ou pour un prototypage rapide.
+
+•	Si vous visez la performance, la flexibilité et l'extensibilité : Le code en Julia est plus adapté pour des projets à long terme et pour des jeux plus complexes. Il offre une meilleure gestion des performances et une architecture plus modulaire, permettant une évolution plus facile du jeu.
+
+•	Pour un jeu simple et rapide : R peut suffire. Mais pour un jeu qui pourrait évoluer en complexité ou qui pourrait être utilisé comme base pour des projets plus ambitieux, Julia est un choix plus robuste et flexible.
+
+En résumé, si le projet est destiné à évoluer avec des fonctionnalités supplémentaires ou nécessite une meilleure performance, Julia est le meilleur choix. Si le projet est simple et que vous cherchez à apprendre rapidement ou à prototyper un jeu simple, R est suffisant mais au même titre que Julia.
 
 
 
