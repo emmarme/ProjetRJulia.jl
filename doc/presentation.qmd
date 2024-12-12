@@ -32,9 +32,11 @@ Voici le plan :
 3. Medals Prediction  
 4. Breast Cancer   
 5. Shiny  
-6. Snake Game  
-7. Snake Game Dispatching  
-8. Création des Packages
+6. CART
+7. Snake Game  
+8. Snake Game Dispatching  
+9. Création des Packages
+10. Conclusion
 ---
 
 # Introduction
@@ -45,39 +47,31 @@ Voici le plan :
 
 # Début du projet
 
-On a choisi un sujet sur la gymnastique 
+<div style="display: inline-block; width: 49%; text-align: center;">
+  ![](imagegym.jpg){width=60%}
+</div>
+<div style="display: inline-block; width: 49%; text-align: center;">
+  ![](jo.png){width=60%}
+</div>
 
+Sujet: Gymnastique et Machine Learning 
 
+Est-il possible de prédire les médailles au prochain JO ?
 ---
-
 # Medals Prediction
 
+![](medailles.jpg){width=40%}
 
-
-```{julia}
-using ProjetRJulia
-using DataFrames
-using MLJ
-
-#On prépare la base de donnée et on charge
-filtered_data = ProjetRJulia.load_data2()
-
-#Entrainement et predicton du modèle
-model, y_test, y_pred=train_model2(filtered_data)
-
-#Je veux dans mon résultat, le nom, la médaille gagnée et dans quelle event 
-prediction = DataFrame(Name = filtered_data.Name[partition(eachindex(filtered_data.Medal), 0.7)[2]], pred_Medal = y_pred, Event = filtered_data.Event[partition(eachindex(filtered_data.Medal), 0.7)[2]])
-
-resultat_par_evnmt = groupby(prediction, :Event)
-
-```
 
 ---
-
 # Breast Cancer
+![](octobrerose.webp){width=40%}
+
+Création d'un algorithme de ML, qui prédit si le cancer sera Malin ou Bénin.
+Voici une matrice de corrélation obtenu et les différentes métriques.
+
 
 ---
-
 # Shiny  
 
 
