@@ -133,6 +133,9 @@ function game_loop()
         # Vérifier les collisions
         result = check_collision(snake, food)
 
+        # Afficher le résultat pour vérifier sa structure
+        println("Result of check_collision: ", result)
+
         # Vérification du type de `result` pour éviter l'accès incorrect
         if typeof(result) != Tuple || length(result) != 2
             println("Erreur de déstructuration dans le tuple retourné par check_collision.")
