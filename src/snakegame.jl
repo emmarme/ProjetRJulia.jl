@@ -136,7 +136,7 @@ function game_loop()
 
         sleep(0.1)  # Mettre une pause entre chaque itération (réduire la vitesse du jeu)
     end
-end
+end   
 
 # Lancer le jeu
 game_loop()
