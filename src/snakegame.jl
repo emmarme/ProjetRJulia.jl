@@ -68,16 +68,24 @@ end
 # Fonction pour vérifier les collisions
 function check_collision(snake::AbstractSnake, food::Tuple{Int, Int})
     head = snake.body[1]
-    if head in snake.body[2:end]  # Vérifier si la tête touche le corps
-        return true  # Collision avec le corps
+    
+    # Collision avec le corps
+    if head in snake.body[2:end]
+        return true, false  # Collision avec le corps
     end
+    
+    # Collision avec les bords
     if head[1] < 1 || head[1] > WIDTH || head[2] < 1 || head[2] > HEIGHT
-        return true  # Collision avec les bords
+        return true, false  # Collision avec les bords
     end
+    
+    # Collision avec la nourriture
     if head == food
-        return false, true  # Manger la nourriture
+        return false, true  # Pas de collision, mais la nourriture a été mangée
     end
-    return false, false  # Pas de collision
+    
+    # Pas de collision
+    return false, false
 end
 
 # Fonction pour lire l'entrée clavier de manière non-bloquante
@@ -123,7 +131,17 @@ function game_loop()
         snake = move_snake(snake)
 
         # Vérifier les collisions
-        collision, ate_food = check_collision(snake, food)
+        result = check_collision(snake, food)
+
+        # Vérification du type de `result` pour éviter l'accès incorrect
+        if typeof(result) != Tuple || length(result) != 2
+            println("Erreur de déstructuration dans le tuple retourné par check_collision.")
+            break
+        end
+
+        # Déstructuration du résultat
+        collision, ate_food = result
+
         if collision
             println("Game Over! You hit something.")
             game_over = true
@@ -136,7 +154,7 @@ function game_loop()
 
         sleep(0.1)  # Mettre une pause entre chaque itération (réduire la vitesse du jeu)
     end
-end   
+end
 
 # Lancer le jeu
 game_loop()
