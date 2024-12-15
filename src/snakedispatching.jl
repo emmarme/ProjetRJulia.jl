@@ -146,8 +146,8 @@ function game_loop2()
             game_over = true
         elseif ate_food
             println("Yum! You ate the food!")
-            # Ajouter une nouvelle partie au serpent
-            snake.body = [(food[1], food[2]); snake.body]
+            # Créer une nouvelle instance de LongSnake2 avec un segment ajouté
+            snake = LongSnake2([(food[1], food[2]); snake.body], snake.direction, snake.speed)
             food = spawn_food2(snake)  # Spawner une nouvelle nourriture
         end
 
@@ -157,3 +157,4 @@ end
 
 # Lancer le jeu
 game_loop2()
+
