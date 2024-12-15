@@ -30,12 +30,12 @@ end
 
 # Fonction pour initialiser un serpent normal
 function init_snake2()
-    return Snake([(i, 5) for i in reverse(1:INITIAL_LENGTH)], 'D')  # Direction: Droite
+    return Snake2([(i, 5) for i in reverse(1:INITIAL_LENGTH)], 'D')  # Direction: Droite
 end
 
 # Fonction pour initialiser un serpent plus long avec une vitesse
 function init_long_snake2()
-    return LongSnake([(i, 5) for i in reverse(1:INITIAL_LENGTH)], 'D', 1.0)  # Direction: Droite, vitesse: 1.0
+    return LongSnake2([(i, 5) for i in reverse(1:INITIAL_LENGTH)], 'D', 1.0)  # Direction: Droite, vitesse: 1.0
 end
 
 # Fonction pour générer la nourriture
@@ -67,18 +67,18 @@ end
 
 # Fonction pour déplacer le serpent
 function move_snake2(snake::AbstractSnake)
-    if snake isa Snake
+    if snake isa Snake2
         head = snake.body[1]
         dx, dy = DIRECTIONS[snake.direction]
         new_head = (head[1] + dx, head[2] + dy)
         new_body = [new_head; snake.body[1:end-1]]  # Mettre à jour le corps du serpent
-        return Snake(new_body, snake.direction)  # Retourner une nouvelle instance de Snake
-    elseif snake isa LongSnake
+        return Snake2(new_body, snake.direction)  # Retourner une nouvelle instance de Snake2
+    elseif snake isa LongSnake2
         head = snake.body[1]
         dx, dy = DIRECTIONS[snake.direction]
         new_head = (head[1] + dx * snake.speed, head[2] + dy * snake.speed)  # Vitesse modifiée
         new_body = [new_head; snake.body[1:end-1]]
-        return LongSnake(new_body, snake.direction, snake.speed)  # Retourner une nouvelle instance de LongSnake
+        return LongSnake2(new_body, snake.direction, snake.speed)  # Retourner une nouvelle instance de LongSnake2
     end
 end
 
@@ -126,17 +126,17 @@ function game_loop2()
         # Changer la direction uniquement si elle est valide (et ne va pas à l'opposé)
         if input in keys(DIRECTIONS)
             if input == 'Z' && snake.direction != 'S'
-                snake = LongSnake(snake.body, 'Z', snake.speed)  # Créer une nouvelle instance de Snake
+                snake = LongSnake2(snake.body, 'Z', snake.speed)  # Créer une nouvelle instance de LongSnake2
             elseif input == 'S' && snake.direction != 'Z'
-                snake = LongSnake(snake.body, 'S', snake.speed)
+                snake = LongSnake2(snake.body, 'S', snake.speed)
             elseif input == 'Q' && snake.direction != 'D'
-                snake = LongSnake(snake.body, 'Q', snake.speed)
+                snake = LongSnake2(snake.body, 'Q', snake.speed)
             elseif input == 'D' && snake.direction != 'Q'
-                snake = LongSnake(snake.body, 'D', snake.speed)
+                snake = LongSnake2(snake.body, 'D', snake.speed)
             end
         end
 
-        # Déplacer le serpent (cela va créer une nouvelle instance de Snake)
+        # Déplacer le serpent (cela va créer une nouvelle instance de LongSnake2)
         snake = move_snake2(snake)
 
         # Vérifier les collisions
