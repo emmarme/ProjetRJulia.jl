@@ -96,9 +96,11 @@ Après avoir obtenu les résultats, nous nous sommes dit « Pourquoi pas compare
 
 Voici les performances en Julia:
 
-```{julia}
+```{julia, warning=false, message=false}
 
 using ProjetRJulia
+using Logging
+global_logger(NullLogger())
 
 #Charger le dataset
 data = ProjetRJulia.load_data()
