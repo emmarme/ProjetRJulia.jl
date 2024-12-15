@@ -59,15 +59,15 @@ function evaluate_model(y_test,y_pred)
     # Extraire la matrice de confusion sous forme de tableau
     cm_array = cm.mat
 
-    # Affichage de la matrice de confusion sous forme de graphique
-    display(heatmap(cm_array, xlabel="Predictions", ylabel="Actual", title="Confusion Matrix", color=:blues))
-
     #Calcul de la précision, f1 score et recall
     recall_score=recall(y_pred,y_test)
     println("Recall : ", recall_score)
     
     f1_score=f1score(y_pred,y_test)
     println("F1 score : ", f1_score)
+
+     # Affichage de la matrice de confusion sous forme de graphique
+     display(heatmap(cm_array, xlabel="Predictions", ylabel="Actual", title="Confusion Matrix", color=:blues))
 
     return accuracy, cm, recall_score,f1_score
 
