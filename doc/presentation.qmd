@@ -133,31 +133,21 @@ plot(p1, p2, layout=(1, 2),size=(900,500))
 
 ## Snake Game
 
-<div style="display: flex; align-items: center;">
-  Pourquoi un snake ?
+<div style="display: flex; align-items: flex-start; justify-content: space-between;">
   <div>
-    - Volonté de faire du développement en Julia
-    - jeu (à priori...) simple et amusant 
+    <h3>Pourquoi un Snake ?</h3>
+    <ul>
+      <li>Volonté de faire du développement en Julia</li>
+      <li>Jeu (à priori...) simple et amusant</li>
+    </ul>
   </div>
-  <div style="font-size: 60%; line-height: 1.2;">
-Problèmes rencontrés:
-</div>
-  <div>
-    - affichage
-    - déplacements
-    - Bug persistants
-  </div>
-</div>
----
-
-## Snake Game Dispatching
-<div style="display: flex; align-items: center;">
-  Tentative de créer un snake incluant du multiple dispatching dans le code. 
-  <div>
-    - Premières idées
-    - Modification des fonctions
-    - Problèmes de déplacement
-    - Résultat final
+  <div style="text-align: right;">
+    <p style="font-size: 80%; font-weight: bold;">Problèmes rencontrés:</p>
+    <ul style="font-size: 80%;">
+      <li>Affichage</li>
+      <li>Déplacements</li>
+      <li>Bugs persistants</li>
+    </ul>
   </div>
 </div>
 ---
