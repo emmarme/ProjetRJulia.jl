@@ -29,17 +29,17 @@ struct LongSnake <: AbstractSnake
 end
 
 # Fonction pour initialiser un serpent normal
-function init_snake()
+function init_snake2()
     return Snake([(i, 5) for i in reverse(1:INITIAL_LENGTH)], 'D')  # Direction: Droite
 end
 
 # Fonction pour initialiser un serpent plus long avec une vitesse
-function init_long_snake()
+function init_long_snake2()
     return LongSnake([(i, 5) for i in reverse(1:INITIAL_LENGTH)], 'D', 1.0)  # Direction: Droite, vitesse: 1.0
 end
 
 # Fonction pour générer la nourriture
-function spawn_food(snake::AbstractSnake)
+function spawn_food2(snake::AbstractSnake)
     food_position = rand(1:WIDTH), rand(1:HEIGHT)
     while food_position in snake.body  # S'assurer que la nourriture ne spawn pas sur le serpent
         food_position = rand(1:WIDTH), rand(1:HEIGHT)
@@ -48,7 +48,7 @@ function spawn_food(snake::AbstractSnake)
 end
 
 # Fonction pour afficher le jeu
-function draw_game(snake::AbstractSnake, food::Tuple{Int, Int})
+function draw_game2(snake::AbstractSnake, food::Tuple{Int, Int})
     println("\033[2J")  # Efface l'écran
     for y in 1:HEIGHT
         for x in 1:WIDTH
@@ -66,7 +66,7 @@ function draw_game(snake::AbstractSnake, food::Tuple{Int, Int})
 end
 
 # Fonction pour déplacer le serpent
-function move_snake(snake::AbstractSnake)
+function move_snake2(snake::AbstractSnake)
     if snake isa Snake
         head = snake.body[1]
         dx, dy = DIRECTIONS[snake.direction]
@@ -83,7 +83,7 @@ function move_snake(snake::AbstractSnake)
 end
 
 # Fonction pour vérifier les collisions
-function check_collision(snake::AbstractSnake, food::Tuple{Int, Int})
+function check_collision2(snake::AbstractSnake, food::Tuple{Int, Int})
     head = snake.body[1]
     if head in snake.body[2:end]  # Vérifier si la tête touche le corps
         return true, false  # Collision avec le corps, pas de nourriture mangée
@@ -98,7 +98,7 @@ function check_collision(snake::AbstractSnake, food::Tuple{Int, Int})
 end
 
 # Fonction pour lire l'entrée clavier de manière non-bloquante
-function get_input()
+function get_input2()
     input = readline(stdin, keep=true)  # Lire l'entrée de l'utilisateur
     if !isempty(input)  # Vérifier si l'entrée n'est pas vide
         return input[1]  # Retourner le premier caractère de la chaîne
@@ -108,16 +108,16 @@ function get_input()
 end
 
 # Fonction principale du jeu
-function game_loop()
-    snake = init_long_snake()  # Utilisation d'un serpent plus long avec vitesse
-    food = spawn_food(snake)
+function game_loop2()
+    snake = init_long_snake2()  # Utilisation d'un serpent plus long avec vitesse
+    food = spawn_food2(snake)
     game_over = false
 
     while !game_over
-        draw_game(snake, food)
+        draw_game2(snake, food)
 
         # Lire l'entrée clavier sans bloquer
-        input = get_input()
+        input = get_input2()
         if input == "q"
             println("Game Over!")
             break
@@ -137,10 +137,10 @@ function game_loop()
         end
 
         # Déplacer le serpent (cela va créer une nouvelle instance de Snake)
-        snake = move_snake(snake)
+        snake = move_snake2(snake)
 
         # Vérifier les collisions
-        collision, ate_food = check_collision(snake, food)
+        collision, ate_food = check_collision2(snake, food)
         if collision
             println("Game Over! You hit something.")
             game_over = true
@@ -148,7 +148,7 @@ function game_loop()
             println("Yum! You ate the food!")
             # Ajouter une nouvelle partie au serpent
             snake.body = [(food[1], food[2]); snake.body]
-            food = spawn_food(snake)  # Spawner une nouvelle nourriture
+            food = spawn_food2(snake)  # Spawner une nouvelle nourriture
         end
 
         sleep(0.1)  # Mettre une pause entre chaque itération (réduire la vitesse du jeu)
@@ -156,4 +156,4 @@ function game_loop()
 end
 
 # Lancer le jeu
-game_loop()
+game_loop2()
