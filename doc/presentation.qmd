@@ -1,51 +1,52 @@
 ---
 title: "Présentation R et Julia"
-
 format:
   revealjs:
     theme: solarized
     transition: concave
     slide-number: true
     self-contained: true
-
 ---
+
+::: {.columns}
+
+::: {.column width="70%"}
+<div style="text-align: center;">
+![](logo.png){width=200px style="margin-bottom: 20px;"}
+</div>
+:::
+
+::: {.column width="70%"}
+### Membres du groupe:
+- Emma Roume
+- Jade Bordet
+
+### UE:
+- Logiciels Spécialisés
+- Outils de présentation et de recherche reproductible
+:::
 
 :::
 
-::: {.column width="50%"}
-![](logo.png){width=280px}
-
-Group members :  
-Emma Roume
-Jade Bordet
-
-:::
-::::
-
 ---
 
-# Plan 📋
+## Plan 📋
 
 Voici le plan :  
-1. Introduction   
-2. Début du projet   
-3. Medals Prediction  
-4. Breast Cancer   
-5. Shiny  
-6. CART
-7. Snake Game  
-8. Snake Game Dispatching  
-9. Création des Packages
-10. Conclusion
----
-
-# Introduction
-
-
+1. Début du projet   
+2. Medals Prediction  
+3. Breast Cancer   
+4. Shiny  
+5. CART
+6. Snake Game  
+7. Snake Game Dispatching  
+8. Création des Packages
+9. Conclusion
 
 ---
 
-# Début du projet
+## Début du projet
+
 
 <div style="display: inline-block; width: 49%; text-align: center;">
   ![](imagegym.jpg){width=60%}
@@ -54,38 +55,92 @@ Voici le plan :
   ![](jo.png){width=60%}
 </div>
 
+
 Sujet: Gymnastique et Machine Learning 
 
 Est-il possible de prédire les médailles au prochain JO ?
----
-# Medals Prediction
-
-![](medailles.jpg){width=40%}
-
 
 ---
-# Breast Cancer
-![](octobrerose.webp){width=40%}
 
+## Medals Prediction
+
+<div style="display: flex; align-items: center;">
+  <img src="medailles.jpg" style="width: 50%; margin-right: 20px;" />
+  <div>
+    Étape du Projet:
+    - Choix de l'algorithme : Random Forest
+    - Nettoyage BDD
+    - Création des fonctions
+    - Affichage des résultats
+    - Problèmes
+  </div>
+</div>
+
+---
+
+## Breast Cancer
+
+<div style="font-size: 50%; line-height: 1.2;">
 Création d'un algorithme de ML, qui prédit si le cancer sera Malin ou Bénin.
-Voici une matrice de corrélation obtenu et les différentes métriques.
+Voici une matrice de corrélation obtenue et les différentes métriques.
+</div>
+
+```{julia}
+using ProjetRJulia
+
+#Charger le dataset
+data = ProjetRJulia.load_data()
+
+#Entrainement et predicton du modèle pour le cancer du sein
+model, y_test, y_pred=train_model(data)
+
+accuracy, cm, recall_score, f1_score = evaluate_model(y_test, y_pred)
+```
+
+---
+
+## Shiny  
+
+<div style="font-size: 60%; line-height: 1.2;">
+Voici quelques graphiques que l'on a affiché dans le shiny:
+</div>
+
+```{julia, include=FALSE}
+using ProjetRJulia
+using DataFrames
+using Plots
+using StatsPlots
+
+gr()
+
+#Charger le dataset
+data = ProjetRJulia.load_data()
+
+p1=histogram(data.radius_mean,title="Histogramme radius_mean", xlabel="radius_mean", ylabel="Fréquence", legend=false)
+
+color_map = Dict(0 => :red, 1 => :blue)
+
+p2=boxplot(data.diagnosis, data.area_se, title="Boxplot of area_se by Diagnosis", xlabel=["Bénin","Malin"], ylabel="area_se", legend=false)
+
+# Afficher les graphiques dans un layout
+plot(p1, p2, layout=(1, 2),size=(900,500))
+
+```
+
 
 
 ---
-# Shiny  
+
+## Snake Game
 
 
 ---
 
-# Snake Game
-
-
----
-# Snake Game Dispatching
+## Snake Game Dispatching
 
 ---
 
-# Création des Packages 
+## Création des Packages 
 
 ---
 
