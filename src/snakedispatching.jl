@@ -86,10 +86,10 @@ end
 function check_collision(snake::AbstractSnake, food::Tuple{Int, Int})
     head = snake.body[1]
     if head in snake.body[2:end]  # Vérifier si la tête touche le corps
-        return true  # Collision avec le corps
+        return true, false  # Collision avec le corps, pas de nourriture mangée
     end
     if head[1] < 1 || head[1] > WIDTH || head[2] < 1 || head[2] > HEIGHT
-        return true  # Collision avec les bords
+        return true, false  # Collision avec les bords, pas de nourriture mangée
     end
     if head == food
         return false, true  # Manger la nourriture
