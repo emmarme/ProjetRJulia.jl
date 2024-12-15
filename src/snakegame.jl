@@ -12,11 +12,8 @@ const DIRECTIONS = Dict(
     'D' => (1, 0)    # Droite
 )
 
-# Type abstrait pour le serpent
-abstract type AbstractSnake end
-
 # Structure de données pour un serpent classique
-struct Snake <: AbstractSnake
+struct Snake
     body::Vector{Tuple{Int, Int}}  # Corps du serpent
     direction::Char  # Direction actuelle
 end
@@ -27,7 +24,7 @@ function init_snake()
 end
 
 # Fonction pour générer la nourriture
-function spawn_food(snake::AbstractSnake)
+function spawn_food(snake::Snake)
     food_position = rand(1:WIDTH), rand(1:HEIGHT)
     while food_position in snake.body  # S'assurer que la nourriture ne spawn pas sur le serpent
         food_position = rand(1:WIDTH), rand(1:HEIGHT)
@@ -36,7 +33,7 @@ function spawn_food(snake::AbstractSnake)
 end
 
 # Fonction pour afficher le jeu
-function draw_game(snake::AbstractSnake, food::Tuple{Int, Int})
+function draw_game(snake::Snake, food::Tuple{Int, Int})
     println("\033[2J")  # Efface l'écran
     for y in 1:HEIGHT
         for x in 1:WIDTH
@@ -54,38 +51,27 @@ function draw_game(snake::AbstractSnake, food::Tuple{Int, Int})
 end
 
 # Fonction pour déplacer le serpent
-function move_snake(snake::AbstractSnake)
-    if snake isa Snake
-        head = snake.body[1]
-        dx, dy = DIRECTIONS[snake.direction]
-        new_head = (head[1] + dx, head[2] + dy)
-        new_body = [new_head; snake.body[1:end-1]]  # Mettre à jour le corps du serpent
-        return Snake(new_body, snake.direction)  # Retourner une nouvelle instance de Snake
-    end
-    # Ajoutez des méthodes pour d'autres types de serpents si besoin
+function move_snake(snake::Snake)
+    head = snake.body[1]
+    dx, dy = DIRECTIONS[snake.direction]
+    new_head = (head[1] + dx, head[2] + dy)
+    new_body = [new_head; snake.body[1:end-1]]  # Mettre à jour le corps du serpent
+    return Snake(new_body, snake.direction)  # Retourner une nouvelle instance de Snake
 end
 
 # Fonction pour vérifier les collisions
-function check_collision(snake::AbstractSnake, food::Tuple{Int, Int})
+function check_collision(snake::Snake, food::Tuple{Int, Int})
     head = snake.body[1]
-    
-    # Collision avec le corps
-    if head in snake.body[2:end]
-        return true, false  # Collision avec le corps
+    if head in snake.body[2:end]  # Vérifier si la tête touche le corps
+        return true  # Collision avec le corps
     end
-    
-    # Collision avec les bords
     if head[1] < 1 || head[1] > WIDTH || head[2] < 1 || head[2] > HEIGHT
-        return true, false  # Collision avec les bords
+        return true  # Collision avec les bords
     end
-    
-    # Collision avec la nourriture
     if head == food
-        return false, true  # Pas de collision, mais la nourriture a été mangée
+        return false, true  # Manger la nourriture
     end
-    
-    # Pas de collision
-    return false, false
+    return false, false  # Pas de collision
 end
 
 # Fonction pour lire l'entrée clavier de manière non-bloquante
@@ -131,20 +117,7 @@ function game_loop()
         snake = move_snake(snake)
 
         # Vérifier les collisions
-        result = check_collision(snake, food)
-
-        # Afficher le résultat pour vérifier sa structure
-        println("Result of check_collision: ", result)
-
-        # Vérification du type de `result` pour éviter l'accès incorrect
-        if typeof(result) != Tuple || length(result) != 2
-            println("Erreur de déstructuration dans le tuple retourné par check_collision.")
-            break
-        end
-
-        # Déstructuration du résultat
-        collision, ate_food = result
-
+        collision, ate_food = check_collision(snake, food)
         if collision
             println("Game Over! You hit something.")
             game_over = true
@@ -161,4 +134,3 @@ end
 
 # Lancer le jeu
 game_loop()
-
