@@ -131,43 +131,57 @@ plot(p1, p2, layout=(1, 2),size=(900,500))
 
 ---
 
-## Snake Game
+## Snake Game 🐍
 
-<div style="display: flex; align-items: center;">
-  Pourquoi un snake ?
-  <div>
-    - Volonté de faire du développement en Julia
-    - jeu (à priori...) simple et amusant 
-  </div>
-  <div style="font-size: 60%; line-height: 1.2;">
-Problèmes rencontrés:
-</div>
-  <div>
-    - affichage
-    - déplacements
-    - Bug persistants
-  </div>
-</div>
+### Pourquoi un Snake ?
+
+- **Volonté de faire du développement en Julia**  
+  Développer un jeu en utilisant le langage Julia pour tester ses capacités et fonctionnalités.
+
+- **Jeu (à priori...) simple et amusant**  
+  Un jeu simple, mais offrant suffisamment de défis pour être intéressant à développer.
+
+### Problèmes rencontrés
+
+- **Affichage** : Difficultés liées à l'affichage des éléments du jeu.
+- **Déplacements** : Gestion des déplacements du serpent avec les touches directionnelles et correction des bugs.
+- **Bugs persistants** : Problèmes techniques non résolus malgré plusieurs tentatives.
 ---
 
-## Snake Game Dispatching
-<div style="display: flex; align-items: center;">
-  Tentative de créer un snake incluant du multiple dispatching dans le code. 
-  <div>
-    - Premières idées
-    - Modification des fonctions
-    - Problèmes de déplacement
-    - Résultat final
-  </div>
-</div>
+
+## Snake Game Dispatching 🐍
+
+### Tentative de créer un snake incluant du multiple dispatching dans le code.
+
+- **Premières idées**
+  - Introduction du concept de multiple dispatching dans le jeu Snake.
+  - Comment structurer les interactions entre objets à l'aide du dispatching.
+
+- **Modification des fonctions**
+  - Refactorisation des fonctions pour les rendre compatibles avec le dispatching multiple.
+  - Mise à jour des fonctions de déplacement et d'affichage pour le rendre plus flexible.
+
+- **Problèmes de déplacement**
+  - Difficultés rencontrées pour assurer des mouvements cohérents avec plusieurs types de Snake.
+  - Gestion des états multiples et des conflits de déplacement.
+
+- **Résultat final**
+  - Présentation de la version finale avec des déplacements fonctionnels.
+  - Démonstration du jeu Snake avec dispatching multiple.
+
 ---
 
-## Création des Packages 
-</div>
--Premier package R (echec, mauvaise méthode)
--Package Julia --> Problème rencontré avec le premier 
--Packages Finaux, R et Julia 
-</div>
+## Création des Packages
+
+- **Premier package R** : 
+  - Échec dû à une mauvaise méthode.
+  
+- **Package Julia** : 
+  - Problème rencontré avec le premier package R.
+  
+- **Packages Finaux** : 
+  - Développement des packages finaux en R et Julia.
+  - Solutions mises en place pour résoudre les problèmes rencontrés avec les packages initiaux.
 
 ---
 
