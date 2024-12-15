@@ -63,10 +63,10 @@ end
 function check_collision(snake::Snake, food::Tuple{Int, Int})
     head = snake.body[1]
     if head in snake.body[2:end]  # Vérifier si la tête touche le corps
-        return true  # Collision avec le corps
+        return true, false  # Collision avec le corps
     end
     if head[1] < 1 || head[1] > WIDTH || head[2] < 1 || head[2] > HEIGHT
-        return true  # Collision avec les bords
+        return true, false  # Collision avec les bords
     end
     if head == food
         return false, true  # Manger la nourriture
@@ -86,7 +86,7 @@ end
 
 # Fonction principale du jeu
 function game_loop()
-    snake = init_snake()  # Utilisation d'un serpent classique
+    snake = init_snake()  # Initialisation du serpent
     food = spawn_food(snake)
     game_over = false
 
