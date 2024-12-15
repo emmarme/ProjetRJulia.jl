@@ -16,13 +16,13 @@ const DIRECTIONS = Dict(
 abstract type AbstractSnake end
 
 # Structure de données pour un serpent classique
-struct Snake <: AbstractSnake
+struct Snake2 <: AbstractSnake
     body::Vector{Tuple{Int, Int}}  # Corps du serpent
     direction::Char  # Direction actuelle
 end
 
 # Structure de données pour un serpent avec un corps plus long
-struct LongSnake <: AbstractSnake
+struct LongSnake2 <: AbstractSnake
     body::Vector{Tuple{Int, Int}}  # Corps du serpent
     direction::Char  # Direction actuelle
     speed::Float64  # Vitesse du serpent
