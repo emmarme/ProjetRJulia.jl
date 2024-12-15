@@ -157,3 +157,4 @@ end
 
 # Lancer le jeu
 game_loop()
+test
