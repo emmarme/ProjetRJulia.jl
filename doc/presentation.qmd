@@ -32,15 +32,15 @@ format:
 
 ## Plan 📋
 
-Voici le plan :  
-1. Début du projet   
-2. Medals Prediction  
-3. Breast Cancer   
-4. Shiny  
-5. CART
-6. Snake Game  
-7. Snake Game Dispatching  
-8. Création des Packages
+Voici le plan :\
+1. Début du projet\
+2. Medals Prediction\
+3. Breast Cancer\
+4. Shiny\
+5. CART\
+6. Snake Game\
+7. Snake Game Dispatching\
+8. Création des Packages\
 9. Conclusion
 
 ---
@@ -140,6 +140,7 @@ plot(p1, p2, layout=(1, 2),size=(900,500))
     - jeu (à priori...) simple et amusant 
   </div>
   <div style="font-size: 60%; line-height: 1.2;">
+
 Problèmes rencontrés:
 </div>
   <div>
@@ -148,9 +149,11 @@ Problèmes rencontrés:
     - Bug persistants
   </div>
 </div>
+
 ---
 
 ## Snake Game Dispatching
+
 <div style="display: flex; align-items: center;">
   Tentative de créer un snake incluant du multiple dispatching dans le code. 
   <div>
@@ -160,14 +163,17 @@ Problèmes rencontrés:
     - Résultat final
   </div>
 </div>
+
 ---
 
 ## Création des Packages 
+
 </div>
 -Premier package R (echec, mauvaise méthode)
 -Package Julia --> Problème rencontré avec le premier 
 -Packages Finaux, R et Julia 
 </div>
+
 ---
 
 Merci pour votre attention ! 😊  
