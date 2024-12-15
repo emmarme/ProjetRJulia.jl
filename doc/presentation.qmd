@@ -133,30 +133,21 @@ plot(p1, p2, layout=(1, 2),size=(900,500))
 
 ## Snake Game
 
-<div style="display: flex; align-items: flex-start; justify-content: space-between;">
-  <div>
-    <h3>Pourquoi un Snake ?</h3>
-    <ul>
-      <li>Volonté de faire du développement en Julia</li>
-      <li>Jeu (à priori...) simple et amusant</li>
-    </ul>
-  </div>
-  <div style="text-align: right;">
-    <p style="font-size: 80%; font-weight: bold;">Problèmes rencontrés:</p>
-    <ul style="font-size: 80%;">
-      <li>Affichage</li>
-      <li>Déplacements</li>
-      <li>Bugs persistants</li>
-    </ul>
-  </div>
-</div>
+### Pourquoi un Snake ?
+- Volonté de faire du développement en Julia
+- Jeu (à priori...) simple et amusant
+
+### Problèmes rencontrés :
+- Affichage
+- Déplacements
+- Bugs persistants
 ---
 
 ## Création des Packages 
-</div>
--Premier package R (echec, mauvaise méthode)
--Package Julia --> Problème rencontré avec le premier 
--Packages Finaux, R et Julia 
+<div>
+  - Premier package R (échec/ mauvaise méthode)
+  - Package Julia --> Problème rencontré avec le premier
+  - Packages Finaux, R et Julia
 </div>
 ---
 
