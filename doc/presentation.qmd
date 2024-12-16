@@ -133,6 +133,7 @@ plot(p1, p2, layout=(1, 2),size=(900,500))
 
 ## Snake Game 🐍
 
+<div style="font-size: 60%; line-height: 1.2;">
 ### Pourquoi un Snake ?
 
 - **Volonté de faire du développement en Julia**  
@@ -146,11 +147,13 @@ plot(p1, p2, layout=(1, 2),size=(900,500))
 - **Affichage** : Difficultés liées à l'affichage des éléments du jeu.
 - **Déplacements** : Gestion des déplacements du serpent avec les touches directionnelles et correction des bugs.
 - **Bugs persistants** : Problèmes techniques non résolus malgré plusieurs tentatives.
+</div>
 ---
 
 
 ## Snake Game Dispatching 🐍
 
+<div style="font-size: 60%; line-height: 1.2;">
 ### Tentative de créer un snake incluant du multiple dispatching dans le code.
 
 - **Premières idées**
@@ -168,6 +171,7 @@ plot(p1, p2, layout=(1, 2),size=(900,500))
 - **Résultat final**
   - Présentation de la version finale avec des déplacements fonctionnels.
   - Démonstration du jeu Snake avec dispatching multiple.
+</div>
 
 ---
 
